@@ -420,6 +420,25 @@ $columns = array(
 	register_column_headers('list-header', $columns);
 	
 ?>
+<script>
+function confirmation() {
+	
+	
+	if (confirm("Confirm Delete?")){
+		<?php
+		global $wpdb;
+		$pw = $_POST['id'];
+		$wpdb->query("DELETE FROM wp_categoryname WHERE id = '" . $pw . "';");
+		?> 
+		
+	}
+	else{
+		
+	}
+}
+</script>
+
+
 <div class="wrap">  
  <?php    echo "<h2>" . __( 'Flash Card Categories' ) . "</h2>"; ?>  
 <table class="widefat page fixed" cellspacing="0">
@@ -437,13 +456,14 @@ if(isset($_POST["deletes"] )){
 		$pw = $_POST['id'];
 		if(count($pw) > 0 ) {
 		$wpdb->query("DELETE FROM wp_categoryname WHERE id = '" . $pw . "';");
-               // echo ($sql);
+              // echo ($sql);
 		//echo '<pre>';
 		//print_r($_POST);
 		//echo '</pre>';
 		//die();
 }
 ?>
+
 <div class="updated"><p><strong><?php _e('Category Deleted.', 'menu-test' ); ?></strong></p></div>	  
 	<?php			
 }
@@ -492,6 +512,7 @@ $template = $_POST['color'];
 		<td><form method="post" action="">
 		<input type="submit" value="Delete" class="button button-primary" name="deletes" />
 		<input type="submit" value="Edit" class="button button-primary" name="Edit" />
+		<button onclick="return confirm(\'are you sure?\');" class="button button-primary" >Delete</button>
 		<input type="hidden" name="id" value="' . $r['id'] .'" /></td>
 		<td>' . $r['category_name'] . '</td>
 		<td><input type="text" id="color" name="color" disabled="disabled"  value="' . $r['template'] . '" class="wp-color-picker-field" data-default-color="#ffffff"/></form></td>
@@ -499,6 +520,7 @@ $template = $_POST['color'];
 	}  
 
 ?>
+
 </tbody>
 </table>
 </div>
@@ -567,6 +589,7 @@ $columns = array(
 	register_column_headers('list-header2', $columns);
 	
 ?>
+
 <div class="wrap">  
  <?php    echo "<h2>" . __( 'Flash Card Words' ) . "</h2>"; ?>  
 <table class="widefat page fixed" cellspacing="0">
