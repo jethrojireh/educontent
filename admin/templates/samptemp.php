@@ -203,7 +203,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 		</tr>
 		  <tr>
 		  <td><h4>Flash Card Title</h4></td>
-		  <td> <select id='subcatsSelect'>
+		  <td><select id='subcatsSelect' name='subcatsSelect'>
     </select></td>
 	</tr> 
 	
@@ -231,16 +231,14 @@ error_reporting(E_ALL ^ E_NOTICE);
 	<?php	
 	global $wpdb;
 		//$title = $_POST['fdwtitle'];
-		$count = $wpdb->get_var( "SELECT COUNT(word) FROM wp_word WHERE title_id = 1 ");
-		echo $count->word;
-
-		$titleword  = 5;
-		//$options = array( 1=>'General Question', 'Company Information', 'Customer Issue', 'Supplier Issue', 'Supplier Issue', 'Request For Quote', 'Other' );
-		
+		$count = $wpdb->get_var( "SELECT COUNT(word) FROM wp_word");
+	//	var_dump($titleword);
+	//	echo $count->word;
+	//	$titleword  = 6;
 		$wordslist = $wpdb->get_results("SELECT id, word FROM wp_word WHERE title_id = $titleword ");
 		echo $wordslist->word;
 		$sightwords = $wpdb->get_results("SELECT sightwords FROM wp_title WHERE id = $titleword  ");
-		echo $sight->sightword;
+		//echo $sightwords->sightword;
 		foreach ( $sightwords as $sight )  
 		{
 		echo '<textarea maxlength="45" id="styled" name="sightwords" value="' . $sight->sightwords. '">'. $sight->sightwords .'</textarea>';
@@ -254,7 +252,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 	<?php		
 		foreach ( $wordslist as $wordslist2 )
 		{		 
-		echo '<input type="checkbox" name="words[]" value="'.$wordslist2->word.'">'.$wordslist2->word;
+		echo '<input type="checkbox" name="words[]" value="'.$wordslist2->word.'">' . "" . ' ' . $wordslist2->word;
 		echo '<br />';
 		}	
 	?>
