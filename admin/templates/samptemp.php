@@ -234,7 +234,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 		$count = $wpdb->get_var( "SELECT COUNT(word) FROM wp_word WHERE title_id = 1 ");
 		echo $count->word;
 
-		$titleword  = 6;
+		$titleword  = 5;
 		//$options = array( 1=>'General Question', 'Company Information', 'Customer Issue', 'Supplier Issue', 'Supplier Issue', 'Request For Quote', 'Other' );
 		
 		$wordslist = $wpdb->get_results("SELECT id, word FROM wp_word WHERE title_id = $titleword ");
