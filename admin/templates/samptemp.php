@@ -234,7 +234,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 		$count = $wpdb->get_var( "SELECT COUNT(word) FROM wp_word");
 	//	var_dump($titleword);
 	//	echo $count->word;
-	//	$titleword  = 6;
+		$titleword  = 6;
 		$wordslist = $wpdb->get_results("SELECT id, word FROM wp_word WHERE title_id = $titleword ");
 		echo $wordslist->word;
 		$sightwords = $wpdb->get_results("SELECT sightwords FROM wp_title WHERE id = $titleword  ");
