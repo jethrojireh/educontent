@@ -260,7 +260,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 	?>
 	</div>
 				<script>
-				document.getElementById('fdwtest').addEventListener('change', function () {
+				document.getElementById('subcatsSelect').addEventListener('change', function () {
 				var style = this.value != "" ? 'block' : 'none';
 				document.getElementById('show_div').style.display = style;
 				//$('#hidden_div').load('wp-content\plugins\wordwork\admin\templates\qdiv.php #test');
