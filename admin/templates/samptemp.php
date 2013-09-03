@@ -159,9 +159,17 @@ error_reporting(E_ALL ^ E_NOTICE);
   while($row = $result->fetch_assoc()){
     $subcats[$row['category_id']][] = array("id" => $row['id'], "val" => $row['title']);
   }
+  
+/*  $query = "SELECT id, title_id, word FROM wp_word";
+  $result = $db->query($query);
+
+  while($row = $result->fetch_assoc()){
+    $test[] = array("id" => $row['id'], "tit_id" => $row['title_id'], "val" => $row['word']);
+  }*/
 
   $jsonCats = json_encode($categories);
   $jsonSubCats = json_encode($subcats);
+ // $jtest = json_encode($test);
 
 ?>
 
@@ -172,8 +180,7 @@ error_reporting(E_ALL ^ E_NOTICE);
       <?php
         echo "var categories = $jsonCats; \n";
         echo "var subcats = $jsonSubCats; \n";
-     //   echo " $jsonCats";
-       // echo "$jsonSubCats";
+  
       ?>
       function loadCategories(){
         var select = document.getElementById("categoriesSelect");
@@ -231,6 +238,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 	<?php	
 	global $wpdb;
 		//$title = $_POST['fdwtitle'];
+		//var_dump ($jtest);
 		$count = $wpdb->get_var( "SELECT COUNT(word) FROM wp_word");
 	//	var_dump($titleword);
 	//	echo $count->word;
