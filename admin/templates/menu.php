@@ -504,6 +504,7 @@ function confirmation() {
 		?> 
 	}
 	else{
+		// message here
 	}
 }
 </script>
