@@ -6,11 +6,14 @@
  {
  var ID=$(this).attr('id');
  $("#first_"+ID).hide();
+ //$("#last_"+ID).hide();
  $("#first_input_"+ID).show();
+ //$("#last_input_"+ID).show();
  }).change(function()
  {
  var ID=$(this).attr('id');
  var first=$("#first_input_"+ID).val();
+ //var last=$("#last_input_"+ID).val();
  var dataString = 'id='+ID +'&catname='+first;
  $("#first_"+ID).html('<img src="scroll-loader.gif" width="30px" height="30px" />');
  
@@ -64,7 +67,6 @@ padding:5px;
 {
 font-size:14px;
 width:auto;
-background-color:#ffffcc;
 border:solid 1px #000;
 padding:4px;
 }	
@@ -494,17 +496,18 @@ $columns = array(
 
 <script>
 function confirmation() {
-	if (confirm("Confirm Delete?")){
+	if (confirm){
 		<?php
 		if(isset($_POST["deletes"] )){
 		global $wpdb;
 		$pw = $_POST['id'];
 		$wpdb->query("DELETE FROM wp_categoryname WHERE id = '" . $pw . "';");
 		}
-		?> 
+		?>
+		
 	}
 	else{
-		// message here
+		
 	}
 }
 </script>
@@ -578,11 +581,11 @@ $template = $_POST['color'];
 	while ($r = mysql_fetch_array ($res)){
 	echo '<tr id ="' .$r['id']. '" class="edit_tr">
 		<td><form method="post" action="">
-		<button onclick="return confirm(\'are you sure?\');" class="button button-primary" name="deletes">Delete</button>
+		<button onclick="return confirm(\'confirm delete?\');" class="button button-primary" name="deletes">Delete</button>
 		<input type="hidden" name="id" value="' . $r['id'] .'" /></td>
 		<td class ="edit_td"><span id="first_'.$r['id'].'" class="text"><a style="text-decoration :none;color:#555555;" href="#" title="click to change">'. $r['category_name'] . '</a></span><input type="text" value ="' .$r['category_name']. '" class="editbox" id="first_input_'.$r['id'].'"/>
 		</td>
-		<td><input type="text" id="color" name="color" disabled="disabled"  value="' . $r['template'] . '" class="wp-color-picker-field" data-default-color="#ffffff"/></td></form>
+		<td><input type="text" id="color" name="color" value="' . $r['template'] . '" class="wp-color-picker-field" data-default-color="#ffffff"/></td></form>
 		</tr>'; 
 	}  
 
