@@ -1,21 +1,3 @@
-<style>
-.editbox
-{
-display:none
-}
-td
-{
-padding:5px;
-}
-.editbox
-{
-font-size:14px;
-width:270px;
-background-color:#ffffcc;
-border:solid 1px #000;
-padding:4px;
-}	
-</style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function()
@@ -29,14 +11,14 @@ padding:4px;
  {
  var ID=$(this).attr('id');
  var first=$("#first_input_"+ID).val();
- var dataString = 'id='+ID +'$firstname='+first;
+ var dataString = 'id='+ID +'&catname='+first;
  
  if(first.length>0)
 {
 
 $.ajax({
 type: "POST",
-url: "menu.php",
+url: "table_edit_ajax.php",
 data: dataString,
 cache: false,
 success: function(html)
@@ -68,6 +50,24 @@ $(".text").show();
 
 });
 </script>
+<style>
+.editbox
+{
+display:none
+}
+td
+{
+padding:5px;
+}
+.editbox
+{
+font-size:14px;
+width:auto;
+background-color:#ffffcc;
+border:solid 1px #000;
+padding:4px;
+}	
+</style>
 <?php
 error_reporting(E_ERROR | E_PARSE);    // only major problems
  	function sandbox_theme_display( $active_tab = '' ) {  
@@ -584,17 +584,6 @@ $template = $_POST['color'];
 		</tr>'; 
 	}  
 
-?>
-  <?php
-global $wpdb;
-if($_POST['id'])
-{
-$id=mysql_escape_String($_POST['id']);
-$firstname=mysql_escape_String($_POST['firstname']);
-//$lastname=mysql_escape_String($_POST['lastname']);
-$sql = "UPDATE wp_categoryname SET category_name='$firstname' where id='$id'";
-mysql_query($sql);
-}
 ?>
 </tbody>
 </table>
