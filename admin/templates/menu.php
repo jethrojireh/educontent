@@ -1,3 +1,73 @@
+<style>
+.editbox
+{
+display:none
+}
+td
+{
+padding:5px;
+}
+.editbox
+{
+font-size:14px;
+width:270px;
+background-color:#ffffcc;
+border:solid 1px #000;
+padding:4px;
+}	
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function()
+ {
+ $(".edit_tr").click(function()
+ {
+ var ID=$(this).attr('id');
+ $("#first_"+ID).hide();
+ $("#first_input_"+ID).show();
+ }).change(function()
+ {
+ var ID=$(this).attr('id');
+ var first=$("#first_input_"+ID).val();
+ var dataString = 'id='+ID +'$firstname='+first;
+ 
+ if(first.length>0)
+{
+
+$.ajax({
+type: "POST",
+url: "menu.php",
+data: dataString,
+cache: false,
+success: function(html)
+{
+$("#first_"+ID).html(first);
+
+}
+});
+}
+else
+{
+alert('Enter something.');
+}
+
+});
+
+// Edit input box click action 
+$(".editbox").mouseup(function() 
+{
+return false
+});
+
+// Outside click action
+$(document).mouseup(function()
+{
+$(".editbox").hide();
+$(".text").show();
+});
+
+});
+</script>
 <?php
 error_reporting(E_ERROR | E_PARSE);    // only major problems
  	function sandbox_theme_display( $active_tab = '' ) {  
@@ -420,25 +490,22 @@ $columns = array(
 	register_column_headers('list-header', $columns);
 	
 ?>
+
 <script>
 function confirmation() {
-	
-	
 	if (confirm("Confirm Delete?")){
 		<?php
+		if(isset($_POST["deletes"] )){
 		global $wpdb;
 		$pw = $_POST['id'];
 		$wpdb->query("DELETE FROM wp_categoryname WHERE id = '" . $pw . "';");
+		}
 		?> 
-		
 	}
 	else{
-		
 	}
 }
 </script>
-
-
 <div class="wrap">  
  <?php    echo "<h2>" . __( 'Flash Card Categories' ) . "</h2>"; ?>  
 <table class="widefat page fixed" cellspacing="0">
@@ -450,7 +517,7 @@ function confirmation() {
 
  <tbody>
 <?php
-global $wpdb;
+/*global $wpdb;
 if(isset($_POST["deletes"] )){
 		global $wpdb;
 		$pw = $_POST['id'];
@@ -465,9 +532,8 @@ if(isset($_POST["deletes"] )){
 ?>
 
 <div class="updated"><p><strong><?php _e('Category Deleted.', 'menu-test' ); ?></strong></p></div>	  
-	<?php			
-}
-elseif(isset($_POST["Edit"] )){
+	<?php			*/
+if(isset($_POST["Edit"] )){
 		echo'<div id="showdiv" style="border:1px solid black; background-color:e0e0e0;padding:10px;">';
 echo'<h3>Edit here:</h3>';
 global $wpdb;
@@ -508,18 +574,28 @@ $template = $_POST['color'];
 	$res = mysql_query($sql) or die (mysql_error());
 	
 	while ($r = mysql_fetch_array ($res)){
-	echo '<tr>
+	echo '<tr id ="' .$r['id']. '" class="edit_tr">
 		<td><form method="post" action="">
-		<input type="submit" value="Edit" class="button button-primary" name="Edit" />
-		<button onclick="return confirm(\'are you sure?\');" class="button button-primary" >Delete</button>
+		<button onclick="return confirm(\'are you sure?\');" class="button button-primary" name="deletes">Delete</button>
 		<input type="hidden" name="id" value="' . $r['id'] .'" /></td>
-		<td>' . $r['category_name'] . '</td>
-		<td><input type="text" id="color" name="color" disabled="disabled"  value="' . $r['template'] . '" class="wp-color-picker-field" data-default-color="#ffffff"/></form></td>
+		<td class ="edit_td"><span id="first_'.$r['id'].'" class="text">'. $r['category_name'] . '</span><input type="text" value ="' .$r['category_name']. '" class="editbox" id="first_input_'.$r['id'].'"/>
+		</td>
+		<td><input type="text" id="color" name="color" disabled="disabled"  value="' . $r['template'] . '" class="wp-color-picker-field" data-default-color="#ffffff"/></td></form>
 		</tr>'; 
 	}  
 
 ?>
-
+  <?php
+global $wpdb;
+if($_POST['id'])
+{
+$id=mysql_escape_String($_POST['id']);
+$firstname=mysql_escape_String($_POST['firstname']);
+//$lastname=mysql_escape_String($_POST['lastname']);
+$sql = "UPDATE wp_categoryname SET category_name='$firstname' where id='$id'";
+mysql_query($sql);
+}
+?>
 </tbody>
 </table>
 </div>
