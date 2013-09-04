@@ -510,7 +510,6 @@ $template = $_POST['color'];
 	while ($r = mysql_fetch_array ($res)){
 	echo '<tr>
 		<td><form method="post" action="">
-		<input type="submit" value="Delete" class="button button-primary" name="deletes" />
 		<input type="submit" value="Edit" class="button button-primary" name="Edit" />
 		<button onclick="return confirm(\'are you sure?\');" class="button button-primary" >Delete</button>
 		<input type="hidden" name="id" value="' . $r['id'] .'" /></td>
