@@ -248,17 +248,7 @@ $columns = array(
   </thead>
 
   <tbody>
-		<script>
-	       function deleletconfig(){
-
-		    var del=confirm("Are you sure you want to delete this record?");
-		    if (del==true){
-		       alert ("record deleted")
-		    }
-		    return del;
-		    }
-		 </script>
-
+	
  <?php
 global $wpdb;
 
@@ -267,6 +257,9 @@ if(isset($_POST["deltitle"] )){
 		$pw1 = $_POST['id'];
 		if(count($pw1) > 0 ) {
 		$wpdb->query("DELETE FROM wp_title WHERE id = '" . $pw1 . "';");
+		print "<script type=\"text/javascript\">"; 
+		print "alert('Record Deleted')"; 
+		print "</script>";  
 		//echo $pw1;
 		?>
 
@@ -330,7 +323,7 @@ $title_data = $wpdb->get_results( "SELECT id, category_id, title, sightwords FRO
 
 		<?php
 			echo'<input type="hidden" name="id" value="' .$tle_data->id .'" >';
-			echo'<input type="submit" class="button button-primary" name="deltitle" onclick="return deleletconfig()" value="Delete">';
+			echo'<input type="submit" class="button button-primary" name="deltitle" onclick="return confirm (\'Confirm Delete?\');" value="Delete">';
 			echo'<input type="hidden" name="id" value="' .$tle_data->id .'" /></form></td>';
 
 		echo'</tr>';
@@ -740,7 +733,7 @@ $word_data = $wpdb->get_results( "SELECT id, word FROM $table_name WHERE title_i
 		<td><input type = "checkbox" value="'.$wrd_data->id .'" ></td>
 		<td class="edit_td1"><span id="first_'.$wrd_data->id.'" class="text">' .$wrd_data->word .'</span>
 <input type="text" value="'.$wrd_data->word .'" class="editbox" id="first_input_'.$wrd_data->id.'"></td>
-                <td><input type="submit" value="Delete" class="button button-primary" name="delword" /></td>
+                <td><input type="submit" value="Delete" class="button button-primary" name="delword" onclick="return confirm(\'Confirm Delete?\');" /></td>
 		<input type="hidden" name="id" value="'.$wrd_data->id.'"/>
 		</form></tr>';
 
@@ -751,6 +744,9 @@ $word_data = $wpdb->get_results( "SELECT id, word FROM $table_name WHERE title_i
 		global $wpdb;
                 $wordid = $_POST['id'];
                 $wpdb->query("DELETE FROM wp_word WHERE id = '" . $wordid . "';");
+		print "<script type=\"text/javascript\">"; 
+		print "alert('Record Deleted')"; 
+		print "</script>";  
 
 }
 
