@@ -378,7 +378,7 @@ function examples_callback() {
         //var last=$("#last_input_"+ID).val();
         var dataString = 'id='+ID +'&catname='+first;
         //please send to me scroll-loder.gif - Heinz ito
-        $("#first_"+ID).html('<img src="scroll-loader.gif" width="30px" height="30px" />');
+        $("#first_"+ID).html('<img src="<?=plugins_url('scroll-loader.gif', __FILE__ )?>" width="30px" height="30px" />');
 
         if(first.length>0)
         {
@@ -523,6 +523,9 @@ if(isset($_POST["delcateg"] )){
 		$pw = $_POST['id'];
 		if(count($pw) > 0 ) {
 		$wpdb->query("DELETE FROM wp_categoryname WHERE id = '" . $pw . "';");
+		print "<script type=\"text/javascript\">"; 
+		print "alert('Record Deleted')"; 
+		print "</script>";  
               // echo ($sql);
 		//echo '<pre>';
 		//print_r($_POST);
@@ -574,8 +577,8 @@ $res = mysql_query($sql) or die (mysql_error());
 while ($r = mysql_fetch_array ($res)){
 	echo '<tr id ="' .$r['id']. '" class="edit_tr">
 		<td><form method="post" action="">
-		<input type="submit" class="button button-primary" name="delcateg" onclick="return confirm(\'confirm delete?\');" value="Delete">
-		<input type="hidden" name="id" value="' . $r['id'] .'" /></td>
+		<input type="submit" class="button button-primary" name="delcateg" onclick="return confirm(\'Confirm Delete?\');" value="Delete">
+		<input type="hidden" name="id" value="' . $r['id'] .'" /></td></form>
 		<td class ="edit_td"><span id="first_'.$r['id'].'" class="text"><a style="text-decoration :none;color:#555555;" href="#" title="click to change">'. $r['category_name'] . '</a></span><input type="text" value ="' .$r['category_name']. '" class="editbox" id="first_input_'.$r['id'].'"/>
 		</td>
 		<td><input type="text" id="color_'.$r['id'].'" name="color" value="' . $r['template'] . '" class="wp-color-picker-field" data-default-color="#ffffff"/></td>
