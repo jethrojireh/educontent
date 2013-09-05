@@ -518,7 +518,7 @@ $columns = array(
  <tbody>
 <?php
 global $wpdb;
-if(isset($_POST["deletes"] )){
+if(isset($_POST["delcateg"] )){
 		global $wpdb;
 		$pw = $_POST['id'];
 		if(count($pw) > 0 ) {
