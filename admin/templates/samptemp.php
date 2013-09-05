@@ -107,6 +107,57 @@ if($(this).hasClass('inactive')){ //this is the start of our condition
 
 });
 </script>
+<?php
+  $db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');//set your database handler
+  $query = "SELECT id,category_name FROM wp_categoryname";
+  $result = $db->query($query);
+
+  while($row = $result->fetch_assoc()){
+    $categories[] = array("id" => $row['id'], "val" => $row['category_name']);
+  }
+
+  $query = "SELECT id, category_id, title FROM wp_title";
+  $result = $db->query($query);
+
+  while($row = $result->fetch_assoc()){
+    $subcats[$row['category_id']][] = array("id" => $row['id'], "val" => $row['title']);
+  }
+
+  $jsonCats = json_encode($categories);
+  $jsonSubCats = json_encode($subcats);
+
+?>
+
+<!docytpe html>
+<html>
+  <head>
+       <script type='text/javascript'>
+      <?php
+        echo "var categories = $jsonCats; \n";
+        echo "var subcats = $jsonSubCats; \n";
+  
+      ?>
+      function loadCategories(){
+        var select = document.getElementById("categoriesSelect");
+        select.onchange = updateSubCats;
+        for(var i = 0; i < categories.length; i++){
+          select.options[i] = new Option(categories[i].val,categories[i].id);          
+        }
+      }
+      function updateSubCats(){
+        var catSelect = this;
+        var catid = this.value;
+        var subcatSelect = document.getElementById("subcatsSelect");
+        subcatSelect.options.length = 0; //delete all options if any present
+        for(var i = 0; i < subcats[catid].length; i++){
+          subcatSelect.options[i] = new Option(subcats[catid][i].val,subcats[catid][i].id);
+        }
+      }
+    </script>
+  </head>
+  <body onload ='loadCategories()'>
+  </body>
+</html>
 <?php //==========================================FLASH CARDS =======================================================================
 error_reporting(E_ALL ^ E_NOTICE);
  ?>      	
@@ -143,70 +194,8 @@ error_reporting(E_ALL ^ E_NOTICE);
 			
 			<tr>
 			<td><h4>Flash Card Category</h4></td>
-		<td>
-		  <?php
-  $db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');//set your database handler
-  $query = "SELECT id,category_name FROM wp_categoryname";
-  $result = $db->query($query);
-
-  while($row = $result->fetch_assoc()){
-    $categories[] = array("id" => $row['id'], "val" => $row['category_name']);
-  }
-
-  $query = "SELECT id, category_id, title FROM wp_title";
-  $result = $db->query($query);
-
-  while($row = $result->fetch_assoc()){
-    $subcats[$row['category_id']][] = array("id" => $row['id'], "val" => $row['title']);
-  }
-  
-/*  $query = "SELECT id, title_id, word FROM wp_word";
-  $result = $db->query($query);
-
-  while($row = $result->fetch_assoc()){
-    $test[] = array("id" => $row['id'], "tit_id" => $row['title_id'], "val" => $row['word']);
-  }*/
-
-  $jsonCats = json_encode($categories);
-  $jsonSubCats = json_encode($subcats);
- // $jtest = json_encode($test);
-
-?>
-
-<!docytpe html>
-<html>
-  <head>
-       <script type='text/javascript'>
-      <?php
-        echo "var categories = $jsonCats; \n";
-        echo "var subcats = $jsonSubCats; \n";
-  
-      ?>
-      function loadCategories(){
-        var select = document.getElementById("categoriesSelect");
-        select.onchange = updateSubCats;
-        for(var i = 0; i < categories.length; i++){
-          select.options[i] = new Option(categories[i].val,categories[i].id);          
-        }
-      }
-      function updateSubCats(){
-        var catSelect = this;
-        var catid = this.value;
-        var subcatSelect = document.getElementById("subcatsSelect");
-        subcatSelect.options.length = 0; //delete all options if any present
-        for(var i = 0; i < subcats[catid].length; i++){
-          subcatSelect.options[i] = new Option(subcats[catid][i].val,subcats[catid][i].id);
-        }
-      }
-    </script>
-  </head>
-  <body onload ='loadCategories()'>
-    <select id='categoriesSelect'>
-    </select>
-  </body>
-</html>
-		  
-		</td>
+			<td><select id='categoriesSelect'>
+			</select></td> 
 		</tr>
 		  <tr>
 		  <td><h4>Flash Card Title</h4></td>
