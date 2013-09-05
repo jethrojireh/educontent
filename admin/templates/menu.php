@@ -619,6 +619,7 @@ function sandbox_wordlist_examples_callback() {
             var first=$("#first_input_"+ID).val();
             var dataString = 'id='+ID +'&word='+first;
             $("#first_"+ID).html;
+	    $("#first_"+ID).html('<img src="<?=plugins_url('scroll-loader.gif', __FILE__ )?>" width="30px" height="30px" />');
 
             if(first.length>0)
             {
@@ -652,6 +653,23 @@ function sandbox_wordlist_examples_callback() {
 
 });
 </script>
+<style>
+.editbox
+{
+display:none
+}
+td
+{
+padding:5px;
+}
+.editbox
+{
+font-size:14px;
+width:auto;
+border:solid 1px #000;
+padding:4px;
+}
+</style>
 	<?php
 	echo '<form method="post" action=""> ';
 
