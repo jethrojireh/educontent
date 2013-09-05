@@ -361,113 +361,56 @@ function examples() {
 function examples_callback() {
   //  $options = get_option( 'sandbox_templates' );
 	?>
-<script type="text/javascript">
- $(document).ready(function()
- {
- $(".edit_tr1").click(function()
- {
- var ID=$(this).attr('id');
- $("#first_"+ID).hide();
- $("#first_input_"+ID).show();
- })
- .change(function()
- {
- var ID=$(this).attr('id');
- var first=$("#first_input_"+ID).val();
- var dataString = 'id='+ID +'&word='+first;
- $("#first_"+ID).html;
-
- if(first.length>0)
-{
-
-$.ajax({
-type: "POST",
-url: "<?=plugins_url('edittable_ajax.php', __FILE__ )?>",
-data: dataString,
-cache: false,
-success: function(html)
-{
-$("#first_"+ID).html(first);
-
-}
-});
-}
-else
-{
-alert('Enter something.');
-}
-
-});
-
-// Edit input box click action
-$(".editbox").mouseup(function()
-{
-return false
-});
-
-// Outside click action
-$(document).mouseup(function()
-{
-$(".editbox").hide();
-$(".text").show();
-});
-
-});
- </script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function()
  {
- $(".edit_tr").click(function()
- {
- var ID=$(this).attr('id');
- $("#first_"+ID).hide();
- //$("#last_"+ID).hide();
- $("#first_input_"+ID).show();
- //$("#last_input_"+ID).show();
- }).change(function()
- {
- var ID=$(this).attr('id');
- var first=$("#first_input_"+ID).val();
- //var last=$("#last_input_"+ID).val();
- var dataString = 'id='+ID +'&catname='+first;
- //please send to me scroll-loder.gif - Heinz ito
- $("#first_"+ID).html('<img src="scroll-loader.gif" width="30px" height="30px" />');
+    $(".edit_tr").click(function(){
+        var ID=$(this).attr('id');
+        $("#first_"+ID).hide();
+        //$("#last_"+ID).hide();
+        $("#first_input_"+ID).show();
+        //$("#last_input_"+ID).show();
+    }).change(function() {
+        var ID=$(this).attr('id');
+        var first=$("#first_input_"+ID).val();
+        var catcolor=$("#color")
+        //var last=$("#last_input_"+ID).val();
+        var dataString = 'id='+ID +'&catname='+first;
+        //please send to me scroll-loder.gif - Heinz ito
+        $("#first_"+ID).html('<img src="scroll-loader.gif" width="30px" height="30px" />');
 
- if(first.length>0)
-{
+        if(first.length>0)
+        {
 
-$.ajax({
-type: "POST",
-url: "<?=plugins_url('edittable_ajax.php', __FILE__ )?>",
-data: dataString,
-cache: false,
-success: function(html)
-{
-$("#first_"+ID).html(first);
+            $.ajax({
+                type: "POST",
+                url: "<?=plugins_url('table_edit_ajax.php', __FILE__ )?>",
+                data: dataString,
+                cache: false,
+                success: function(html)
+                {
+                    $("#first_"+ID).html(first);
 
-}
-});
-}
-else
-{
-alert('Enter something.');
-}
+                }
+            });
+        } else {
+            alert('Enter something.');
+        }
+    });
 
-});
+    // Edit input box click action
+    $(".editbox").mouseup(function()
+    {
+        return false
+    });
 
-// Edit input box click action
-$(".editbox").mouseup(function()
-{
-return false
-});
-
-// Outside click action
-$(document).mouseup(function()
-{
-$(".editbox").hide();
-$(".text").show();
-});
-
+    // Outside click action
+    $(document).mouseup(function()
+    {
+        $(".editbox").hide();
+        $(".text").show();
+    });
 });
 </script>
 <style>
@@ -575,12 +518,12 @@ $columns = array(
  <tbody>
 <?php
 global $wpdb;
-if(isset($_POST["delcateg"] )){
+if(isset($_POST["deletes"] )){
 		global $wpdb;
 		$pw = $_POST['id'];
 		if(count($pw) > 0 ) {
 		$wpdb->query("DELETE FROM wp_categoryname WHERE id = '" . $pw . "';");
-                echo ($sql);
+              // echo ($sql);
 		//echo '<pre>';
 		//print_r($_POST);
 		//echo '</pre>';
@@ -589,13 +532,13 @@ if(isset($_POST["delcateg"] )){
 }
 ?>
 
-	<?php			
+<?php			
 /*if(isset($_POST["Edit"] )){
-		echo'<div id="showdiv" style="border:1px solid black; background-color:e0e0e0;padding:10px;">';
-echo'<h3>Edit here:</h3>';
-global $wpdb;
-$data1 = $_POST['id'];
-$table_name = $wpdb->prefix . "categoryname";
+	echo'<div id="showdiv" style="border:1px solid black; background-color:e0e0e0;padding:10px;">';
+        echo'<h3>Edit here:</h3>';
+        global $wpdb;
+        $data1 = $_POST['id'];
+        $table_name = $wpdb->prefix . "categoryname";
 	$cat = $wpdb->get_results("SELECT * FROM $table_name WHERE id = '" . $data1 . "';");
 
 		foreach($cat as $cname){
@@ -610,36 +553,34 @@ $table_name = $wpdb->prefix . "categoryname";
 
 		<?php
 		}
-}
-elseif(isset($_POST['update1']))
-{
-global $wpdb;
-$id = $_POST['id'];
-$category = $_POST['category'];
-$template = $_POST['color'];
+} elseif(isset($_POST['update1'])) {
+        global $wpdb;
+        $id = $_POST['id'];
+        $category = $_POST['category'];
+        $template = $_POST['color'];
 
         $sql = "UPDATE wp_categoryname SET " .
        "category_name = '" . $category . "', " .
        "template = '" . $template . "' WHERE id = '" . $id . "'";
 
-      // echo ("$sql");
-    mysql_query($sql) or die (mysql_error());
-	} */
+        // echo ("$sql");
+        mysql_query($sql) or die (mysql_error());
+}*/
 
-	global $wpdb;
-	$sql = "SELECT * FROM wp_categoryname";
-	$res = mysql_query($sql) or die (mysql_error());
+global $wpdb;
+$sql = "SELECT * FROM wp_categoryname";
+$res = mysql_query($sql) or die (mysql_error());
 
-	while ($r = mysql_fetch_array ($res)){
+while ($r = mysql_fetch_array ($res)){
 	echo '<tr id ="' .$r['id']. '" class="edit_tr">
 		<td><form method="post" action="">
-		<input type="submit" class="button button-primary" name="delcateg" onclick="return confirm(\'Confirm Delete?\');" value="Delete">
+		<input type="submit" class="button button-primary" name="delcateg" onclick="return confirm(\'confirm delete?\');" value="Delete">
 		<input type="hidden" name="id" value="' . $r['id'] .'" /></td>
 		<td class ="edit_td"><span id="first_'.$r['id'].'" class="text"><a style="text-decoration :none;color:#555555;" href="#" title="click to change">'. $r['category_name'] . '</a></span><input type="text" value ="' .$r['category_name']. '" class="editbox" id="first_input_'.$r['id'].'"/>
 		</td>
-		<td><input type="text" id="color" name="color" value="' . $r['template'] . '" class="wp-color-picker-field" data-default-color="#ffffff"/></td></form>
+		<td><input type="text" id="color_'.$r['id'].'" name="color" value="' . $r['template'] . '" class="wp-color-picker-field" data-default-color="#ffffff"/></td>
 		</tr>';
-	}
+}
 
 ?>
 </tbody>
@@ -667,6 +608,54 @@ function sandbox_theme_initialize_wordlist_examples() {
 function sandbox_wordlist_examples_callback() {
     $options = get_option( 'sandbox_theme_wordlist_examples' );
 	?>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+ $(document).ready(function()
+ {
+    $(".edit_tr1").click(function()
+        {
+            var ID=$(this).attr('id');
+            $("#first_"+ID).hide();
+            $("#first_input_"+ID).show();
+        }).change(function()
+        {
+            var ID=$(this).attr('id');
+            var first=$("#first_input_"+ID).val();
+            var dataString = 'id='+ID +'&word='+first;
+            $("#first_"+ID).html;
+
+            if(first.length>0)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "<?=plugins_url('edittable_ajax.php', __FILE__ )?>",
+                    data: dataString,
+                    cache: false,
+                    success: function(html)
+                    {
+                        $("#first_"+ID).html(first);
+                    }
+                });
+            } else {
+                alert('Enter something.');
+            }
+        });
+
+        // Edit input box click action
+        $(".editbox").mouseup(function()
+        {
+            return false
+        });
+
+        // Outside click action
+        $(document).mouseup(function()
+        {
+            $(".editbox").hide();
+            $(".text").show();
+        });
+
+});
+</script>
 	<?php
 	echo '<form method="post" action=""> ';
 
