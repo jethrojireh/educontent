@@ -13,6 +13,7 @@ while($rows = $results->fetch_assoc()){
 $query = "SELECT id, word FROM wp_word WHERE title_id ='" . $var . "'";
 $result = $db->query($query);
 
+
 while($row = $result->fetch_assoc()){
         //echo "<option>" .$row['word']. "</option>";
         echo '

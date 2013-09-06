@@ -165,7 +165,6 @@ xmlhttp.send();
 }
 </script>
 
-
 <?php //==========================================FLASH CARDS =======================================================================
 error_reporting(E_ALL ^ E_NOTICE);
  ?>      	
@@ -175,7 +174,6 @@ error_reporting(E_ALL ^ E_NOTICE);
       <li><a href="#tab2">Graphic Organization Tables</a></li>
       <li><a href="#tab3">Graphic Organizations Templates</a></li>
 </ul>
-
 <div class="container" id="tab1">
         	<br/>
 			
@@ -213,18 +211,35 @@ error_reporting(E_ALL ^ E_NOTICE);
 			  echo '<option value="'.$row['id'].'">' .$row['category_name']. '</option>';
 			}
 			?>
-			</select></td> 
+			</select></td>
 		</tr>
 		  <tr>
 		  <td><h4>Flash Card Title</h4></td>
 		  <td><select id="seltitle" name="seltitle" onchange="showprev(this.value)">
     </select></td>
+<td><h4>Sightwords & Wordlists</h4></td>
+		  <td>
+		    <Script> 
+		    $(function() {    
+		     $('#divpreview').change(function(){
+			 $('.divprev').hide();
+			 $('#' + $(this).val()).show();
+		     });
+		 
+		 });
+		  </Script>
+<Select id="divpreview">
+ <option value="hide_div">Hide</option>
+   <option value="show_div">Show</option>
+</Select>
+<div id="hide_div" class="divprev" style="display:none"></div>
+</td>
 	</tr> 
 	
 	</tbody>
 	</table>
 	<br/>	
-<div id="show_div" name="show_div" style=" margin:12px;padding:12px;
+<div id="show_div" class="divprev" name="show_div" style=" margin:12px;padding:12px;
       border:2px solid #666;
       width:565px;
       height:530px; display: none;"> 
@@ -261,19 +276,14 @@ error_reporting(E_ALL ^ E_NOTICE);
 	</div>
 	<?php
 	       echo '<div id ="preview"></div>';
-		foreach ( $wordslist as $wordslist2 )
-		{		 
-		echo '<input type="checkbox" name="words[]" value="'.$wordslist2->word.'">' . "" . ' ' . $wordslist2->word;
-		echo '<br />';
-		}	
 	?>
 	</div>
 				<script>
-				document.getElementById('seltitle').addEventListener('change', function () {
+		       /*	document.getElementById('seltitle').addEventListener('change', function () {
 				var style = this.value != "" ? 'block' : 'none';
 				document.getElementById('show_div').style.display = style;
 				//$('#hidden_div').load('wp-content\plugins\wordwork\admin\templates\qdiv.php #test');
-				});
+				});   */
 
 				</script>
 				
@@ -294,7 +304,7 @@ error_reporting(E_ALL ^ E_NOTICE);
                    
             <h3> Graphic Organization Content Table Format</h3>
 			 <form action="wp-content\plugins\wordwork\admin\templates\tcpdf\samp\forGraphOrg.php" method="post" enctype="multipart/form-data">
-			<table style="cellpadding:50px>
+			<table style="cellpadding:50px">
 			<tbody>
 			<tr>
 			<td><h4>Project Name</h4></td>
