@@ -6,8 +6,6 @@ $result = $db->query($query);
 
 echo "<select id ='titles'>";
 echo"<option>Select Title...</option>";
-
-
 while($row = $result->fetch_assoc())
       {
         echo "<option>" .$row['title']. "</option>";

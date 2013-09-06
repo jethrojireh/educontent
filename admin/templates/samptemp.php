@@ -164,6 +164,19 @@ xmlhttp.open("GET",url+"?id="+str,true);
 xmlhttp.send();
 }
 </script>
+<script>
+  function check() {
+    var ind = document.getElementById('seltitle').selectedIndex;
+    var ctr = document.getElementById("selcateg").value;
+     if (ctr=="") {
+     alert("Select Category!");
+        }
+    else if (ind==0) {
+      alert("Select Title!");
+    }
+
+  }
+</script>
 
 <?php //==========================================FLASH CARDS =======================================================================
 error_reporting(E_ALL ^ E_NOTICE);
@@ -228,7 +241,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 		 
 		 });       
 		  </Script>
-<Select id="divpreview">
+<Select id="divpreview" onclick ="check();">
  <option value="hide_div">Hide</option>
    <option value="show_div">Show</option>
 </Select>

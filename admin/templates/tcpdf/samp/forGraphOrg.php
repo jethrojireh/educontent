@@ -159,7 +159,7 @@ $pdf->AddPage('L', 'A4');
  
 
 $pdf->SetFillColor(83 , 86, 90);
-$pdf->Rect(7,7, 283, 22, F );
+$pdf->Rect(7,7, 283, 22, 'F' );
 
 $pdf->SetDrawColor(83 , 86, 90);
 $pdf->SetLineWidth(2.82);

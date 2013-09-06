@@ -1,5 +1,5 @@
 <?php
-if ($_POST['layout'] == 1 && $_POST['category'] == ENGLISH)
+if ($_POST['layout'] == 1 && $_POST['category'] == 'ENGLISH')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -65,7 +65,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
     return true;
 }
 //[---------------------------------------------------------english2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == ENGLISH)
+elseif ($_POST['layout'] == 2 && $_POST['category'] == 'ENGLISH')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -187,7 +187,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------english4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == ENGLISH)
+elseif ($_POST['layout'] == 4 && $_POST['category'] == 'ENGLISH')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -273,7 +273,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //HISTORY//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == HISTORY)
+elseif ($_POST['layout'] == 1 && $_POST['category'] == 'HISTORY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -344,7 +344,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------history2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == HISTORY)
+elseif ($_POST['layout'] == 2 && $_POST['category'] == 'HISTORY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -406,7 +406,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------history2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == HISTORY)
+elseif ($_POST['layout'] == 3 && $_POST['category'] == 'HISTORY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -468,7 +468,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------history4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == HISTORY)
+elseif ($_POST['layout'] == 4 && $_POST['category'] == 'HISTORY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -553,7 +553,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //MATH//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == MATHS)
+elseif ($_POST['layout'] == 1 && $_POST['category'] == 'MATHS')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -617,7 +617,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------math2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == MATHS)
+elseif ($_POST['layout'] == 2 && $_POST['category'] == 'MATHS')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -679,7 +679,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------math2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == MATHS)
+elseif ($_POST['layout'] == 3 && $_POST['category'] == 'MATHS')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -740,7 +740,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------math4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == MATHS)
+elseif ($_POST['layout'] == 4 && $_POST['category'] == 'MATHS')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -824,7 +824,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //ART//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == ART)
+elseif ($_POST['layout'] == 1 && $_POST['category'] == 'ART')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -887,7 +887,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------art2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == ART)
+elseif ($_POST['layout'] == 2 && $_POST['category'] == 'ART')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -949,7 +949,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------art2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == ART)
+elseif ($_POST['layout'] == 3 && $_POST['category'] == 'ART')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1010,7 +1010,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------art4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == ART)
+elseif ($_POST['layout'] == 4 && $_POST['category'] == 'ART')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1094,7 +1094,7 @@ $pdf->Ln(0);
 $pdf->Output("flashcards_pdf.pdf", "I");
 }
 //SCIENCE//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == SCIENCE)
+elseif ($_POST['layout'] == 1 && $_POST['category'] == 'SCIENCE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1157,7 +1157,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------science2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == SCIENCE)
+elseif ($_POST['layout'] == 2 && $_POST['category'] == 'SCIENCE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1219,7 +1219,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------science2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == SCIENCE)
+elseif ($_POST['layout'] == 3 && $_POST['category'] == 'SCIENCE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1280,7 +1280,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------science4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == SCIENCE)
+elseif ($_POST['layout'] == 4 && $_POST['category'] == 'SCIENCE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1364,7 +1364,7 @@ $pdf->Ln(0);
 $pdf->Output("flashcards_pdf.pdf", "I");
 }
 //Geo//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == GEOGRAPHY)
+elseif ($_POST['layout'] == 1 && $_POST['category'] == 'GEOGRAPHY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1427,7 +1427,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------geography2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == GEOGRAPHY)
+elseif ($_POST['layout'] == 2 && $_POST['category'] == 'GEOGRAPHY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1489,7 +1489,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------geography2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == GEOGRAPHY)
+elseif ($_POST['layout'] == 3 && $_POST['category'] == 'GEOGRAPHY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1550,7 +1550,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------geography4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == GEOGRAPHY)
+elseif ($_POST['layout'] == 4 && $_POST['category'] == 'GEOGRAPHY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1634,7 +1634,7 @@ $pdf->Ln(0);
 $pdf->Output("flashcards_pdf.pdf", "I");
 }
 //PE//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == PE)
+elseif ($_POST['layout'] == 1 && $_POST['category'] == 'PE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1697,7 +1697,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------pe2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] ==PE)
+elseif ($_POST['layout'] == 2 && $_POST['category'] == 'PE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1759,7 +1759,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------pe2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == PE)
+elseif ($_POST['layout'] == 3 && $_POST['category'] == 'PE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1820,7 +1820,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------pe4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == PE)
+elseif ($_POST['layout'] == 4 && $_POST['category'] == 'PE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
