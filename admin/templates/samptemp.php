@@ -226,7 +226,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 			 $('#' + $(this).val()).show();
 		     });
 		 
-		 });
+		 });       
 		  </Script>
 <Select id="divpreview">
  <option value="hide_div">Hide</option>
@@ -243,22 +243,10 @@ error_reporting(E_ALL ^ E_NOTICE);
       border:2px solid #666;
       width:565px;
       height:530px; display: none;"> 
-	<h3>SIGHTWORDS</h3>  
-	<style>textarea{  resize:none } 
-	textarea#styled {
-	width: 300px;
-	height: 50px;
-	border: 3px solid #cccccc;
-	padding: 5px;
-	font-family: Tahoma, sans-serif;
-	background-image: url(bg.gif);
-	background-position: bottom right;
-	background-repeat: no-repeat;
-	}
 	</style>
 
-	<?php	
-	global $wpdb;
+		<?php	
+	/*	global $wpdb;
 		$count = $wpdb->get_var( "SELECT COUNT(word) FROM wp_word");
 		$wordslist = $wpdb->get_results("SELECT id, word FROM wp_word WHERE title_id = $titleword ");
 		echo $wordslist->word;
@@ -268,12 +256,9 @@ error_reporting(E_ALL ^ E_NOTICE);
 		{
 		echo '<textarea maxlength="45" id="styled" name="sightwords" value="' . $sight->sightwords. '">'. $sight->sightwords .'</textarea>';
 		echo $sight->sightword;
-		} 
+		}  */
 	?>
 
-	<div id="accordion">
-	<h3><a href="#">WORD LISTS</a></h3> 
-	</div>
 	<?php
 	       echo '<div id ="preview"></div>';
 	?>
@@ -290,7 +275,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 			<p><center><input type="submit" name="submit" value="View/Generate PDF"/> &nbsp; <input type="submit" name="save" value="Save Project"/></p>			
 			</form>		
 <?php
-		if(isset($_POST["submit"] )){ 	
+		if(isset($_POST["save"] )){ 	
 		$projectname = $_POST['project_name'];
 		$table_name = $wpdb->prefix . "project";
 		$wpdb->insert( $table_name, array( 'project_name' => $projectname) );		
