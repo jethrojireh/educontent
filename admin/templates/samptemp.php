@@ -107,57 +107,65 @@ if($(this).hasClass('inactive')){ //this is the start of our condition
 
 });
 </script>
-<?php
-  $db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');//set your database handler
-  $query = "SELECT id,category_name FROM wp_categoryname";
-  $result = $db->query($query);
-
-  while($row = $result->fetch_assoc()){
-    $categories[] = array("id" => $row['id'], "val" => $row['category_name']);
+<script>
+function showUser(str)
+{
+if (str=="")
+  {
+  document.getElementById("seltitle").innerHTML="";
+  return;
+  } 
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
   }
-
-  $query = "SELECT id, category_id, title FROM wp_title";
-  $result = $db->query($query);
-
-  while($row = $result->fetch_assoc()){
-    $subcats[$row['category_id']][] = array("id" => $row['id'], "val" => $row['title']);
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("seltitle").innerHTML=xmlhttp.responseText;
+    }
+  }
+var url = "<?=plugins_url('subcateg.php', __FILE__ )?>";
+xmlhttp.open("GET",url+"?id="+str,true);
+xmlhttp.send();
+}
+</script>
+<script>
+function showprev(str)
+{
+if (str=="")
+  {
+  document.getElementById("preview").innerHTML="";
+  return;
+  } 
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("preview").innerHTML=xmlhttp.responseText;
+    }
+  }
+ 
+var url = "<?=plugins_url('preview.php', __FILE__ )?>";
+xmlhttp.open("GET",url+"?id="+str,true);
+xmlhttp.send();
+}
+</script>
 
-  $jsonCats = json_encode($categories);
-  $jsonSubCats = json_encode($subcats);
 
-?>
-
-<!docytpe html>
-<html>
-  <head>
-       <script type='text/javascript'>
-      <?php
-        echo "var categories = $jsonCats; \n";
-        echo "var subcats = $jsonSubCats; \n";
-  
-      ?>
-      function loadCategories(){
-        var select = document.getElementById("categoriesSelect");
-        select.onchange = updateSubCats;
-        for(var i = 0; i < categories.length; i++){
-          select.options[i] = new Option(categories[i].val,categories[i].id);          
-        }
-      }
-      function updateSubCats(){
-        var catSelect = this;
-        var catid = this.value;
-        var subcatSelect = document.getElementById("subcatsSelect");
-        subcatSelect.options.length = 0; //delete all options if any present
-        for(var i = 0; i < subcats[catid].length; i++){
-          subcatSelect.options[i] = new Option(subcats[catid][i].val,subcats[catid][i].id);
-        }
-      }
-    </script>
-  </head>
-  <body onload ='loadCategories()'>
-  </body>
-</html>
 <?php //==========================================FLASH CARDS =======================================================================
 error_reporting(E_ALL ^ E_NOTICE);
  ?>      	
@@ -194,12 +202,22 @@ error_reporting(E_ALL ^ E_NOTICE);
 			
 			<tr>
 			<td><h4>Flash Card Category</h4></td>
-			<td><select id='categoriesSelect'>
+			<td><select name="selcateg" id="selcateg" onchange="showUser(this.value)" >
+			<option value="">Select Category...</option>
+			<?php
+			$db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');//set your database handler
+			$query = "SELECT id,category_name FROM wp_categoryname";
+			$result = $db->query($query);
+		  
+			while($row = $result->fetch_assoc()){
+			  echo '<option value="'.$row['id'].'">' .$row['category_name']. '</option>';
+			}
+			?>
 			</select></td> 
 		</tr>
 		  <tr>
 		  <td><h4>Flash Card Title</h4></td>
-		  <td><select id='subcatsSelect' name='subcatsSelect'>
+		  <td><select id="seltitle" name="seltitle" onchange="showprev(this.value)">
     </select></td>
 	</tr> 
 	
@@ -222,16 +240,11 @@ error_reporting(E_ALL ^ E_NOTICE);
 	background-position: bottom right;
 	background-repeat: no-repeat;
 	}
-	
 	</style>
+
 	<?php	
 	global $wpdb;
-		//$title = $_POST['fdwtitle'];
-		//var_dump ($jtest);
 		$count = $wpdb->get_var( "SELECT COUNT(word) FROM wp_word");
-	//	var_dump($titleword);
-	//	echo $count->word;
-		$titleword  = 6;
 		$wordslist = $wpdb->get_results("SELECT id, word FROM wp_word WHERE title_id = $titleword ");
 		echo $wordslist->word;
 		$sightwords = $wpdb->get_results("SELECT sightwords FROM wp_title WHERE id = $titleword  ");
@@ -240,13 +253,14 @@ error_reporting(E_ALL ^ E_NOTICE);
 		{
 		echo '<textarea maxlength="45" id="styled" name="sightwords" value="' . $sight->sightwords. '">'. $sight->sightwords .'</textarea>';
 		echo $sight->sightword;
-		}
+		} 
 	?>
 
 	<div id="accordion">
 	<h3><a href="#">WORD LISTS</a></h3> 
 	</div>
-	<?php		
+	<?php
+	       echo '<div id ="preview"></div>';
 		foreach ( $wordslist as $wordslist2 )
 		{		 
 		echo '<input type="checkbox" name="words[]" value="'.$wordslist2->word.'">' . "" . ' ' . $wordslist2->word;
@@ -255,7 +269,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 	?>
 	</div>
 				<script>
-				document.getElementById('subcatsSelect').addEventListener('change', function () {
+				document.getElementById('seltitle').addEventListener('change', function () {
 				var style = this.value != "" ? 'block' : 'none';
 				document.getElementById('show_div').style.display = style;
 				//$('#hidden_div').load('wp-content\plugins\wordwork\admin\templates\qdiv.php #test');
