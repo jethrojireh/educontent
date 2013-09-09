@@ -110,6 +110,16 @@ if($(this).hasClass('inactive')){ //this is the start of our condition
 <script>
 function showUser(str)
 {
+  
+if (document.getElementById('seltitle').value != "")
+{
+  alert ("An Active Title is Selected, Page will Reload");
+  //document.getElementById('seltitle').value = "";
+  //document.getElementById('selcateg').value = "";
+ //document.getElementById('show_div').style.display = "none";
+   location.reload();
+}
+else {
 if (str=="")
   {
   document.getElementById("seltitle").innerHTML="";
@@ -134,12 +144,14 @@ var url = "<?=plugins_url('subcateg.php', __FILE__ )?>";
 xmlhttp.open("GET",url+"?id="+str,true);
 xmlhttp.send();
 }
+}
 </script>
 <script>
 function showprev(str)
 {
 if (str=="")
   {
+//  document.getElementById("divprev").style.display="none";
   document.getElementById("preview").innerHTML="";
   return;
   } 
@@ -163,19 +175,6 @@ var url = "<?=plugins_url('preview.php', __FILE__ )?>";
 xmlhttp.open("GET",url+"?id="+str,true);
 xmlhttp.send();
 }
-</script>
-<script>
-  function check() {
-    var ind = document.getElementById('seltitle').selectedIndex;
-    var ctr = document.getElementById("selcateg").value;
-     if (ctr=="") {
-     alert("Select Category!");
-        }
-    else if (ind==0) {
-      alert("Select Title!");
-    }
-
-  }
 </script>
 
 <?php //==========================================FLASH CARDS =======================================================================
@@ -230,25 +229,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 		  <td><h4>Flash Card Title</h4></td>
 		  <td><select id="seltitle" name="seltitle" onchange="showprev(this.value)">
     </select></td>
-<td><h4>Sightwords & Wordlists</h4></td>
-		  <td>
-		    <Script> 
-		    $(function() {    
-		     $('#divpreview').change(function(){
-			 $('.divprev').hide();
-			 $('#' + $(this).val()).show();
-		     });
-		 
-		 });       
-		  </Script>
-<Select id="divpreview" onclick ="check();">
- <option value="hide_div">Hide</option>
-   <option value="show_div">Show</option>
-</Select>
-<div id="hide_div" class="divprev" style="display:none"></div>
-</td>
 	</tr> 
-	
 	</tbody>
 	</table>
 	<br/>	
@@ -256,7 +237,6 @@ error_reporting(E_ALL ^ E_NOTICE);
       border:2px solid #666;
       width:565px;
       height:530px; display: none;"> 
-	</style>
 
 		<?php	
 	/*	global $wpdb;
@@ -277,13 +257,13 @@ error_reporting(E_ALL ^ E_NOTICE);
 	?>
 	</div>
 				<script>
-		       /*	document.getElementById('seltitle').addEventListener('change', function () {
+		         	document.getElementById('seltitle').addEventListener('change', function () {
 				var style = this.value != "" ? 'block' : 'none';
 				document.getElementById('show_div').style.display = style;
 				//$('#hidden_div').load('wp-content\plugins\wordwork\admin\templates\qdiv.php #test');
-				});   */
-
+				});   
 				</script>
+				
 				
 			<p><center><input type="submit" name="submit" value="View/Generate PDF"/> &nbsp; <input type="submit" name="save" value="Save Project"/></p>			
 			</form>		

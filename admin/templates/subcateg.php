@@ -5,7 +5,7 @@ $query = "SELECT id,title FROM wp_title where category_id ='" . $id . "'";
 $result = $db->query($query);
 
 echo "<select id ='titles'>";
-echo"<option>Select Title...</option>";
+echo'<option value="">Select Title...</option>';
 while($row = $result->fetch_assoc())
       {
         echo "<option>" .$row['title']. "</option>";
