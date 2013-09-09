@@ -257,9 +257,9 @@ if(isset($_POST["deltitle"] )){
 		$pw1 = $_POST['id'];
 		if(count($pw1) > 0 ) {
 		$wpdb->query("DELETE FROM wp_title WHERE id = '" . $pw1 . "';");
-		print "<script type=\"text/javascript\">"; 
-		print "alert('Record Deleted')"; 
-		print "</script>";  
+		//print "<script type=\"text/javascript\">"; 
+		//print "alert('Record Deleted')"; 
+		//print "</script>";  
 		//echo $pw1;
 		?>
 
@@ -516,15 +516,17 @@ if(isset($_POST["delcateg"] )){
 		$pw = $_POST['id'];
 		if(count($pw) > 0 ) {
 		$wpdb->query("DELETE FROM wp_categoryname WHERE id = '" . $pw . "';");
-		print "<script type=\"text/javascript\">"; 
-		print "alert('Record Deleted')"; 
-		print "</script>";  
+		//print "<script type=\"text/javascript\">"; 
+		//print "alert('Record Deleted')"; 
+		//print "</script>";  
               // echo ($sql);
 		//echo '<pre>';
 		//print_r($_POST);
 		//echo '</pre>';
 		//die();
 }
+?><div class="updated"><p><strong><?php _e('record deleted.', 'menu-test' ); ?></strong></p></div>
+	<?php
 }
 ?>
 
@@ -776,13 +778,13 @@ $word_data = $wpdb->get_results( "SELECT id, word FROM $table_name WHERE title_i
 		global $wpdb;
                 $wordid = $_POST['id'];
                 $wpdb->query("DELETE FROM wp_word WHERE id = '" . $wordid . "';");
-                
-     
 		
-		}
-		
-	
+	       ?>
+              <div class="updated"><p><strong><?php _e('record deleted.', 'menu-test' ); ?></strong></p></div>
 
+<?php
+		}
+           
 ?>
   </tfoot>
 </table>

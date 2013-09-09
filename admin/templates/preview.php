@@ -13,21 +13,21 @@ $res = $db->query($query2);
 
 echo "<h3>SIGHTWORDS:</h3>";
 while($row1 = $res->fetch_assoc()){
-        echo '<textarea style="font-size:14px; resize:none" rows="4" cols="30">' .$row1['sightwords']. '</textarea>';
+        echo '<textarea name="sightwords" id="sightwords" style="font-size:14px; resize:none" rows="4" cols="30">' .$row1['sightwords']. '</textarea>';
       }
 
 $query = "SELECT id, word FROM wp_word WHERE title_id ='" . $var . "'";
 $result = $db->query($query);
 echo "<br/>";
 echo "<br/>";
-echo "<ul>";
-echo "<lh><strong><font size ='3.5'>WORDLISTS :</font></strong></lh>";
+echo "<strong><font size ='3.5'>WORDLISTS :</font></strong>";
+echo "<br/>";
+echo "<br/>";
 while($row = $result->fetch_assoc()){
-        echo '<li style="font-size:14px">
-             '.$row['word'].'
-             </li>';
-      }
-echo "</ul>";      
+        echo '<input type ="checkbox" id="words" name="words" value="'.$row['words']. '">
+             <font size = "2.5">&nbsp&nbsp'.$row['word'].'</font>
+             <br/>';
+      }   
 }      
    
 mysqli_close($db);

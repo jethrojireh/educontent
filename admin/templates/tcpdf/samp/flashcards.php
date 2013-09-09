@@ -1,5 +1,5 @@
 <?php
-if ($_POST['layout'] == 1 && $_POST['category'] == 'ENGLISH')
+if ($_POST['layout'] == 1 && $_POST['selcateg'] == 'ENGLISH')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -29,7 +29,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(226, 24,54);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -65,7 +65,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
     return true;
 }
 //[---------------------------------------------------------english2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == 'ENGLISH')
+elseif ($_POST['layout'] == 2 && $_POST['selcateg'] == 'ENGLISH')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -96,7 +96,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 $pdf->SetXY(20,25);
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(226, 24,54);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 $pdf->Write($h=10, $cat, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
@@ -127,7 +127,7 @@ $pdf->Output("./samp/pdffiles/FlashCards.pdf", "F");
 }
 
 //[---------------------------------------------------------english2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == ENGLISH)
+elseif ($_POST['layout'] == 3 && $_POST['selcateg'] == 'ENGLISH')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -158,7 +158,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage();
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(226, 24,54);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 
@@ -187,7 +187,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------english4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == 'ENGLISH')
+elseif ($_POST['layout'] == 4 && $_POST['selcateg'] == 'ENGLISH')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -236,7 +236,7 @@ $no = $Count/2;
 $row = 2;
 $pdf->SetXY(40,10);
  
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(226, 24,54);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -273,7 +273,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //HISTORY//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == 'HISTORY')
+elseif ($_POST['layout'] == 1 && $_POST['selcateg'] == 'HISTORY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -304,7 +304,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(242,142,0);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -344,7 +344,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------history2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == 'HISTORY')
+elseif ($_POST['layout'] == 2 && $_POST['selcateg'] == 'HISTORY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -375,7 +375,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 $pdf->SetXY(20,  25);
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(242,142,0);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 $pdf->Write($h=10, $cat, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
@@ -406,7 +406,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------history2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == 'HISTORY')
+elseif ($_POST['layout'] == 3 && $_POST['selcateg'] == 'HISTORY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -437,7 +437,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage();
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(242,142,0 );
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 
@@ -468,7 +468,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------history4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == 'HISTORY')
+elseif ($_POST['layout'] == 4 && $_POST['selcateg'] == 'HISTORY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -516,7 +516,7 @@ $no = $Count/2;
 $row = 2;
 $pdf->SetXY(40,10);
  
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(242,142,0 );
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -553,7 +553,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //MATH//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == 'MATHS')
+elseif ($_POST['layout'] == 1 && $_POST['selcateg'] == 'MATHS')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -584,7 +584,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(0,173,239);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -617,7 +617,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------math2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == 'MATHS')
+elseif ($_POST['layout'] == 2 && $_POST['selcateg'] == 'MATHS')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -648,7 +648,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 $pdf->SetXY(20,  25);
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(0,173,239);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 $pdf->Write($h=10, $cat, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
@@ -679,7 +679,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------math2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == 'MATHS')
+elseif ($_POST['layout'] == 3 && $_POST['selcateg'] == 'MATHS')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -710,7 +710,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage();
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(0,173,239  );
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 
@@ -740,7 +740,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------math4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == 'MATHS')
+elseif ($_POST['layout'] == 4 && $_POST['selcateg'] == 'MATHS')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -788,7 +788,7 @@ $no = $Count/2;
 $row = 2;
 $pdf->SetXY(40,10);
  
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(0,173,239   );
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -824,7 +824,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //ART//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == 'ART')
+elseif ($_POST['layout'] == 1 && $_POST['selcateg'] == 'ART')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -855,7 +855,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(236,0,139);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -887,7 +887,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------art2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == 'ART')
+elseif ($_POST['layout'] == 2 && $_POST['selcateg'] == 'ART')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -918,7 +918,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 $pdf->SetXY(20,  25);
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(236,0,139);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 $pdf->Write($h=10, $cat, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
@@ -949,7 +949,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------art2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == 'ART')
+elseif ($_POST['layout'] == 3 && $_POST['selcateg'] == 'ART')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -980,7 +980,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage();
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(236,0,139);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 
@@ -1010,7 +1010,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------art4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == 'ART')
+elseif ($_POST['layout'] == 4 && $_POST['selcateg'] == 'ART')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1058,7 +1058,7 @@ $no = $Count/2;
 $row = 2;
 $pdf->SetXY(40,10);
  
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(236,0,139);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -1094,7 +1094,7 @@ $pdf->Ln(0);
 $pdf->Output("flashcards_pdf.pdf", "I");
 }
 //SCIENCE//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == 'SCIENCE')
+elseif ($_POST['layout'] == 1 && $_POST['selcateg'] == 'SCIENCE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1125,7 +1125,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(153,202,60);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -1157,7 +1157,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------science2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == 'SCIENCE')
+elseif ($_POST['layout'] == 2 && $_POST['selcateg'] == 'SCIENCE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1188,7 +1188,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 $pdf->SetXY(20,  25);
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(153,202,60);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 $pdf->Write($h=10, $cat, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
@@ -1219,7 +1219,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------science2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == 'SCIENCE')
+elseif ($_POST['layout'] == 3 && $_POST['selcateg'] == 'SCIENCE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1250,7 +1250,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage();
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(153,202,60 );
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 
@@ -1280,7 +1280,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------science4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == 'SCIENCE')
+elseif ($_POST['layout'] == 4 && $_POST['selcateg'] == 'SCIENCE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1328,7 +1328,7 @@ $no = $Count/2;
 $row = 2;
 $pdf->SetXY(40,10);
  
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(153,202,60 );
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -1364,7 +1364,7 @@ $pdf->Ln(0);
 $pdf->Output("flashcards_pdf.pdf", "I");
 }
 //Geo//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == 'GEOGRAPHY')
+elseif ($_POST['layout'] == 1 && $_POST['selcateg'] == 'GEOGRAPHY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1395,7 +1395,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(107,35,127);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -1427,7 +1427,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------geography2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == 'GEOGRAPHY')
+elseif ($_POST['layout'] == 2 && $_POST['selcateg'] == 'GEOGRAPHY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1458,7 +1458,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 $pdf->SetXY(20,  25);
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(107,35,127);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 $pdf->Write($h=10, $cat, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
@@ -1489,7 +1489,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------geography2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == 'GEOGRAPHY')
+elseif ($_POST['layout'] == 3 && $_POST['selcateg'] == 'GEOGRAPHY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1520,7 +1520,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage();
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(107,35,127);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 
@@ -1550,7 +1550,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------geography4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == 'GEOGRAPHY')
+elseif ($_POST['layout'] == 4 && $_POST['selcateg'] == 'GEOGRAPHY')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1598,7 +1598,7 @@ $no = $Count/2;
 $row = 2;
 $pdf->SetXY(40,10);
  
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(107,35,127 );
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -1634,7 +1634,7 @@ $pdf->Ln(0);
 $pdf->Output("flashcards_pdf.pdf", "I");
 }
 //PE//
-elseif ($_POST['layout'] == 1 && $_POST['category'] == 'PE')
+elseif ($_POST['layout'] == 1 && $_POST['selcateg'] == 'PE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1665,7 +1665,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(0,0,153);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);
@@ -1697,7 +1697,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 											
 //[---------------------------------------------------------pe2perpageLandscape-----------------]
-elseif ($_POST['layout'] == 2 && $_POST['category'] == 'PE')
+elseif ($_POST['layout'] == 2 && $_POST['selcateg'] == 'PE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1728,7 +1728,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage('L', 'A4');
 //generate words
 $pdf->SetXY(20,  25);
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(0,0,153);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 $pdf->Write($h=10, $cat, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
@@ -1759,7 +1759,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------pe2perpagePortrait-----------------]
-elseif ($_POST['layout'] == 3 && $_POST['category'] == 'PE')
+elseif ($_POST['layout'] == 3 && $_POST['selcateg'] == 'PE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1790,7 +1790,7 @@ $pdf->setFontSubsetting(false);
 $pdf->AddPage();
 //generate words
 
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(0,0,153);
 $pdf->SetFont('sofiaprobold', 'B', 42, '', true);
 
@@ -1820,7 +1820,7 @@ $pdf->Output("flashcards_pdf.pdf", "I");
 }
 
 //[---------------------------------------------------------pe4perpage-----------------]
-elseif ($_POST['layout'] == 4 && $_POST['category'] == 'PE')
+elseif ($_POST['layout'] == 4 && $_POST['selcateg'] == 'PE')
 {
 require_once('../tcpdf.php');
 require_once('fpdi.php');
@@ -1868,7 +1868,7 @@ $no = $Count/2;
 $row = 2;
 $pdf->SetXY(40,10);
  
-$cat=$_POST['fdwtitle'];
+$cat=$_POST['seltitle'];
 $pdf->SetTextColor(0,0,153);
 $pdf->AddFont('sofiaprobold','','sofiaprobold.php');
 $pdf->SetFont('sofiaprobold', '', 42, '', true);

@@ -108,18 +108,22 @@ if($(this).hasClass('inactive')){ //this is the start of our condition
 });
 </script>
 <script>
-function showUser(str)
-{
-  
-if (document.getElementById('seltitle').value != "")
-{
-  alert ("An Active Title is Selected, Page will Reload");
+function categcheck()
+  {
+   
+   if (document.getElementById('seltitle').value != "")
+      {
+  alert ("An active TITLE is selected, set it to default first before selecting a new CATEGORY!");
   //document.getElementById('seltitle').value = "";
   //document.getElementById('selcateg').value = "";
  //document.getElementById('show_div').style.display = "none";
-   location.reload();
-}
-else {
+ // location.reload();
+      } 
+  }
+</script>
+<script>
+function showUser(str)
+{
 if (str=="")
   {
   document.getElementById("seltitle").innerHTML="";
@@ -143,7 +147,6 @@ xmlhttp.onreadystatechange=function()
 var url = "<?=plugins_url('subcateg.php', __FILE__ )?>";
 xmlhttp.open("GET",url+"?id="+str,true);
 xmlhttp.send();
-}
 }
 </script>
 <script>
@@ -212,7 +215,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 			
 			<tr>
 			<td><h4>Flash Card Category</h4></td>
-			<td><select name="selcateg" id="selcateg" onchange="showUser(this.value)" >
+			<td><select name="selcateg" id="selcateg" onchange="showUser(this.value)" onclick="categcheck()">
 			<option value="">Select Category...</option>
 			<?php
 			$db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');//set your database handler
@@ -233,7 +236,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 	</tbody>
 	</table>
 	<br/>	
-<div id="show_div" class="divprev" name="show_div" style=" margin:12px;padding:12px;
+     <div id="show_div" class="divprev" name="show_div" style=" margin:12px;padding:12px;
       border:2px solid #666;
       width:565px;
       height:530px; display: none;"> 
