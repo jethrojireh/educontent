@@ -24,7 +24,7 @@ echo "<strong><font size ='3.5'>WORDLISTS :</font></strong>";
 echo "<br/>";
 echo "<br/>";
 while($row = $result->fetch_assoc()){
-        echo '<input type ="checkbox" id="words" name="words" value="'.$row['words']. '">
+        echo '<input type ="checkbox" id="wordlist" name="wordlist" value="'.$row['word']. '">
              <font size = "2.5">&nbsp&nbsp'.$row['word'].'</font>
              <br/>';
       }   

@@ -1,4 +1,5 @@
 <?php
+session_start();
 #error_reporting(E_ERROR | E_PARSE);    // only major problems
 function sandbox_theme_display( $active_tab = '' ) {  
 ?>
@@ -257,10 +258,6 @@ if(isset($_POST["deltitle"] )){
 		$pw1 = $_POST['id'];
 		if(count($pw1) > 0 ) {
 		$wpdb->query("DELETE FROM wp_title WHERE id = '" . $pw1 . "';");
-		//print "<script type=\"text/javascript\">"; 
-		//print "alert('Record Deleted')"; 
-		//print "</script>";  
-		//echo $pw1;
 		?>
 
 		<div class="updated"><p><strong><?php _e('Category Deleted.', 'menu-test' ); ?></strong></p></div>
@@ -525,7 +522,7 @@ if(isset($_POST["delcateg"] )){
 		//echo '</pre>';
 		//die();
 }
-?><div class="updated"><p><strong><?php _e('record deleted.', 'menu-test' ); ?></strong></p></div>
+?><div class="updated"><p><strong><?php _e('Record deleted.', 'menu-test' ); ?></strong></p></div>
 	<?php
 }
 ?>
@@ -687,6 +684,7 @@ padding:4px;
 		{
 		if ($_POST['title_name'] == $title_data->id) {
         $selected =  ' selected="selected"';
+    	
     } else {
         $selected = '';
     }
@@ -696,28 +694,14 @@ padding:4px;
 	//echo '<option value="'.$title_data->id .'" '.(($title_data->id==$check_last->id)? 'selected="selected"': '').' >' .$title_data->title .'</option>';
 	//echo '<option value="'.$title_data->id .'" >' .$title_data->title .'</option>';
   	//echo '<option value="'.$title_data->id .'" '.selected( $options['foo'], $title_data->id ) .' >' .$title_data->title .'</option>';
-	echo "<option value='" .$title_data->id . "' ".$selected." >" .$title_data->title ."</option>";
+	echo "<option value='" .$title_data->id . "' ".$selected." >" .$title_data->title ."</option>";	
+	
 	}
 	echo '</select>';
-	
 	echo '<input type="submit" value="display words" class="button button-primary" name="display"  > ';
+	
 	echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-		if(isset($_POST["addword"] )){
-		if ($_POST["word"] == '')  
-		{
-			print '<script type="text/javascript">'; 
-			print 'alert("No data")'; 
-			print '</script>';
-		}
-		else{
-		$title = $_POST['title_name']; 
-		$word = $_POST['word'];
-		$table_name = $wpdb->prefix . "word";
-		$wpdb->insert( $table_name, array( 'title_id' => $title, 'word' => $word ) );
-	?><div class="updated"><p><strong><?php _e('Saved', 'menu-test' ); ?></strong></p></div>
-	<?php
-        }
-        }
+		
 	?>
  <?php
 
@@ -741,6 +725,7 @@ $columns = array(
 <tbody>
   <tr>
 <?php echo '
+		
 		<td>Word</td>
 		<td><input type = "text" value="" name="word" ></td>
 		<td><input type="submit" value="Add Word" class="button button-primary" name="addword" />
@@ -752,39 +737,89 @@ $columns = array(
 <?php
 
 	if(isset($_POST["display"] ) ){
-		$title = $_POST['title_name'];
-		
+		//$title = $_POST['title_name'];
+		$_SESSION['title'] = $_POST['title_name'];
+		//$title=$_SESSION['title'];
 		$word = $_POST['word'];
-		$table_name = $wpdb->prefix . "word";
-
+		//echo $title;
+		
 global $wpdb;
 $table_name = $wpdb->prefix . "word";
-$word_data = $wpdb->get_results( "SELECT id, word FROM $table_name WHERE title_id = $title; ");
+$word_data = $wpdb->get_results( "SELECT id, word FROM $table_name WHERE title_id =" .$_SESSION['title']);
 		foreach ( $word_data as $wrd_data )
 		{
-		echo '<tr id="' . $wrd_data->id. '" class="edit_tr1"> <form method="POST">
+		echo '<tr id="' . $wrd_data->id. '" class="edit_tr1"> 
 		<td><input type = "checkbox" value="'.$wrd_data->id .'" ></td>
 		<td class="edit_td1"><span id="first_'.$wrd_data->id.'" class="text">' .$wrd_data->word .'</span>
 		<input type="text" value="'.$wrd_data->word .'" class="editbox" id="first_input_'.$wrd_data->id.'"></td>
         <td><input type="submit" value="Delete" class="button button-primary" name="delword" onclick="return confirm(\'Confirm Delete?\');" /></td>
 		<input type="hidden" name="id" value="'.$wrd_data->id.'"/>
-		</form></tr>';
+		</tr>';
 
 		}
 		
 		}
+		
+		if(isset($_POST["addword"] )){
+		if ($_POST["word"] == '')  
+		{
+			print '<script type="text/javascript">'; 
+			print 'alert("Please enter data.")'; 
+			print '</script>';
+		}
+		else{
+		$title = $_SESSION['title']; 
+		$word = $_POST['word'];
+		$table_name = $wpdb->prefix . "word";
+		$wpdb->insert( $table_name, array( 'title_id' => $title, 'word' => $word ) );
+		
+		global $wpdb;
+		
+			$table_name = $wpdb->prefix . "word";
+			$word_data = $wpdb->get_results( "SELECT id, word FROM $table_name WHERE title_id = ".$_SESSION['title']);
+				foreach ( $word_data as $wrd_data )
+				{
+				echo '<tr id="' . $wrd_data->id. '" class="edit_tr1"> 
+				<td><input type = "checkbox" value="'.$wrd_data->id .'" ></td>
+				<td class="edit_td1"><span id="first_'.$wrd_data->id.'" class="text">' .$wrd_data->word .'</span>
+				<input type="text" value="'.$wrd_data->word .'" class="editbox" id="first_input_'.$wrd_data->id.'"></td>
+    		    <td><input type="submit" value="Delete" class="button button-primary" name="delword" onclick="return confirm(\'Confirm Delete?\');" />
+				<input type="hidden" name="id" value="'.$wrd_data->id.'"/></td>
+				</tr>';
+				}
+	?><div class="updated"><p><strong><?php _e('Saved', 'menu-test' ); ?></strong></p></div>
+	<?php
+        }
+        }
 		
 		if(isset($_POST["delword"] )){
 		global $wpdb;
                 $wordid = $_POST['id'];
-                $wpdb->query("DELETE FROM wp_word WHERE id = '" . $wordid . "';");
+		echo "$wordid";
+               // $wpdb->query("DELETE FROM wp_word WHERE id = '" . $wordid . "';");
 		
-	       ?>
-              <div class="updated"><p><strong><?php _e('record deleted.', 'menu-test' ); ?></strong></p></div>
+		global $wpdb;
+		
+			$table_name = $wpdb->prefix . "word";
+			$word_data = $wpdb->get_results( "SELECT id, word FROM $table_name WHERE title_id = ".$_SESSION['title']);
+				foreach ( $word_data as $wrd_data )
+				{
+				echo '<tr id="' . $wrd_data->id. '" class="edit_tr1"> 
+				<td><input type = "checkbox" value="'.$wrd_data->id .'" ></td>
+				<td class="edit_td1"><span id="first_'.$wrd_data->id.'" class="text">' .$wrd_data->word .'</span>
+				<input type="text" value="'.$wrd_data->word .'" class="editbox" id="first_input_'.$wrd_data->id.'"></td>
+    		    <td><input type="submit" value="Delete" class="button button-primary" name="delword" onclick="return confirm(\'Confirm Delete?\');" /></td>
+				<input type="hidden" name="id" value="'.$wrd_data->id.'"/>
+				</tr>';
+				}
+?>
+              <div class="updated"><p><strong><?php _e('Record deleted.', 'menu-test' ); ?></strong></p></div>
 
 <?php
 		}
-           
+		echo'</form>';
+		
+		
 ?>
   </tfoot>
 </table>
