@@ -40,26 +40,31 @@ $pdf->AddPage('L', 'A4');
 
 // get esternal file content
 //$utf8text = file_get_contents("cache/utf8test.txt", true);
-$cat=$_POST['seltitle'];
+$title=$_POST['seltitle'];
 $cat1=$_POST['selcateg'];
 $sightwords = $_POST['sightwords'];
 $pname = $_POST['project_name'];
 $word = $_POST['wordlist'];
 $pdf->SetFont("helvetica", "U", 35);
+$pdf->Write(5, "Project Name: ");
 $pdf->Write(5, $pname);
 $pdf->Write(5, "\n");
 $db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');
 $sql = "SELECT * FROM wp_categoryname where id ='" . $cat1 . "'";
 $result = $db->query($sql);
 $pdf->SetFont("helvetica", "", 24);
+$pdf->Write(5, "Category: ");
 while ($r = $result->fetch_assoc()){
 $pdf->Write(5, $r['category_name']);
 }
 $pdf->Write(5, "\n");
-$pdf->Write(5, $cat);
+$pdf->Write(5, "Title: ");
+$pdf->Write(5, $title);
 $pdf->Write(5, "\n");
+$pdf->Write(5, "Sightwords: ");
 $pdf->Write(5, $sightwords);
 $pdf->Write(5, "\n");
+$pdf->Write(5, "Wordlists: ");
 $pdf->Write(5, $word);
 
 $pdf->Output('newpdf.pdf', 'D');
