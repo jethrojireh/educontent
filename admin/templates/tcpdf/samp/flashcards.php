@@ -34,37 +34,42 @@ $pdf->SetMargins(PDF_MARGIN_LEFT, 40, PDF_MARGIN_RIGHT);
 $pdf->SetAutoPageBreak(true, 40);
 $pdf->setFontSubsetting(false);
 
+$title=$_POST['seltitle'];
+$cat1=$_POST['selcateg'];
+$sightwords = $_POST['sightwords'];
+$pname = $_POST['project_name'];
+$word = $_POST['wordlist'];
+
 
 // add a page
 $pdf->AddPage('L', 'A4');
 
 // get esternal file content
 //$utf8text = file_get_contents("cache/utf8test.txt", true);
-$title=$_POST['seltitle'];
-$cat1=$_POST['selcateg'];
-$sightwords = $_POST['sightwords'];
-$pname = $_POST['project_name'];
-$word = $_POST['wordlist'];
-$pdf->SetFont("helvetica", "U", 35);
-$pdf->Write(5, "Project Name: ");
-$pdf->Write(5, $pname);
-$pdf->Write(5, "\n");
-$db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');
-$sql = "SELECT * FROM wp_categoryname where id ='" . $cat1 . "'";
-$result = $db->query($sql);
-$pdf->SetFont("helvetica", "", 24);
-$pdf->Write(5, "Category: ");
-while ($r = $result->fetch_assoc()){
-$pdf->Write(5, $r['category_name']);
-}
-$pdf->Write(5, "\n");
-$pdf->Write(5, "Title: ");
-$pdf->Write(5, $title);
-$pdf->Write(5, "\n");
-$pdf->Write(5, "Sightwords: ");
-$pdf->Write(5, $sightwords);
-$pdf->Write(5, "\n");
-$pdf->Write(5, "Wordlists: ");
-$pdf->Write(5, $word);
 
+$pdf->SetTextColor(226, 24,54);
+$pdf->AddFont('sofiaprobold','','sofiaprobold.php');
+$pdf->SetFont('sofiaprobold', '', 42, '', true);
+$pdf->Write($h=88, $title, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=true, $firstblock=false, $maxh=0);
+
+$pdf->SetFillColor(226, 24,54);
+$pdf->RoundedRect(100.5,  100.5, 100, 34,  4, '1111', 'F');
+$pdf->SetFillColor(255, 255,255);
+$pdf->RoundedRect(102.5,  102.5, 96, 30,   4, '1111', 'F');
+$pdf->SetTextColor(0, 0,0);
+$pdf->SetFont('sofiaprobold', '', 14, '', true);
+$pdf->SetXY(10,  63.5);
+$pdf->Write($h=88, $sightwords, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
+
+$pdf->Ln();
+
+foreach($word as $w){
+     if($word){
+$pdf->SetTextColor(0,0,0);
+$pdf->SetFont('sofiaprobold', '', 88, '', true);
+$pdf->Write($h=88, $w, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
+}
+}
 $pdf->Output('newpdf.pdf', 'D');
+
+?>

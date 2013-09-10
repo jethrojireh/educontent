@@ -795,8 +795,7 @@ $word_data = $wpdb->get_results( "SELECT id, word FROM $table_name WHERE title_i
 		if(isset($_POST["delword"] )){
 		global $wpdb;
                 $wordid = $_POST['id'];
-		echo "$wordid";
-               // $wpdb->query("DELETE FROM wp_word WHERE id = '" . $wordid . "';");
+               $wpdb->query("DELETE FROM wp_word WHERE id = '" . $wordid . "';");
 		
 		global $wpdb;
 		

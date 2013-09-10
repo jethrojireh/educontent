@@ -221,7 +221,6 @@ error_reporting(E_ALL ^ E_NOTICE);
 			$db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');//set your database handler
 			$query = "SELECT id,category_name FROM wp_categoryname";
 			$result = $db->query($query);
-		  
 			while($row = $result->fetch_assoc()){
 			  echo '<option value="'.$row['id'].'">' .$row['category_name']. '</option>';
 			}
@@ -268,13 +267,13 @@ error_reporting(E_ALL ^ E_NOTICE);
 				</script>
 				
 				
-			<p><center><input type="submit" name="submit" value="View/Generate PDF"/> &nbsp; <input type="submit" name="save" value="Save Project"/></p>			
+			<p><center><input type="submit" name="view" value="View/Generate PDF"/> &nbsp; <input type="submit" name="save" value="Save Project"/></p>			
 			</form>		
 <?php
 		if(isset($_POST["save"] )){ 	
 		$projectname = $_POST['project_name'];
 		$table_name = $wpdb->prefix . "project";
-		$wpdb->insert( $table_name, array( 'project_name' => $projectname) );		
+		$wpdb->insert( $table_name, array( 'project_name' => $projectname) );
 		}
 ?>
 				
