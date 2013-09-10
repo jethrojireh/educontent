@@ -194,7 +194,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 			
            <h3> Flash Card Content </h3>
 
-		   <form action="wp-content\plugins\wordwork\admin\templates\tcpdf\samp\flashcards.php" method="POST" enctype="multipart/form-data" >
+		   <form action="wp-content\plugins\wordwork\admin\templates\tcpdf\samp\flashcards.php" method="POST" enctype="multipart/form-data" target ="blank">
 		 	<table border="0">
 			<tbody>
 			<tr>
@@ -270,9 +270,10 @@ error_reporting(E_ALL ^ E_NOTICE);
 			<p><center><input type="submit" name="view" value="View/Generate PDF"/> &nbsp; <input type="submit" name="save" value="Save Project"/></p>			
 			</form>		
 <?php
-		if(isset($_POST["save"] )){ 	
+		if(isset($_POST["save"] )){
+		global $wpdb;
 		$projectname = $_POST['project_name'];
-		$table_name = $wpdb->prefix . "project";
+		$table_name = "wp_project";
 		$wpdb->insert( $table_name, array( 'project_name' => $projectname) );
 		}
 ?>
