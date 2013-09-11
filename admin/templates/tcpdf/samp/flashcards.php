@@ -39,8 +39,22 @@ $pdf->setFontSubsetting(false);
 $title=$_POST['seltitle'];
 $cat1=$_POST['selcateg'];
 $sightwords = $_POST['sightwords'];
-$pname = $_POST['project_name'];
+$pname = $_POST['project_name1'];
+if (empty($_POST['wordlist'])){
+print "<script type=\"text/javascript\">"; 
+print "alert('Select atleast one word from the wordlist')"; 
+print "</script>";
+?>
+<script>
+    window.close();
+</script>
+
+<?php
+}
+else {
 $word = $_POST['wordlist'];
+}
+
 
 
 // add a page
@@ -113,7 +127,7 @@ $pdf->setFontSubsetting(false);
 $title=$_POST['seltitle'];
 $cat1=$_POST['selcateg'];
 $sightwords = $_POST['sightwords'];
-$pname = $_POST['project_name'];
+$pname = $_POST['project_name1'];
 $word = $_POST['wordlist'];
 
 
@@ -209,7 +223,7 @@ $pdf->setFontSubsetting(false);
 $title=$_POST['seltitle'];
 $cat1=$_POST['selcateg'];
 $sightwords = $_POST['sightwords'];
-$pname = $_POST['project_name'];
+$pname = $_POST['project_name1'];
 $word = $_POST['wordlist'];
 
 
@@ -304,7 +318,7 @@ $pdf->setFontSubsetting(false);
 $title=$_POST['seltitle'];
 $cat1=$_POST['selcateg'];
 $sightwords = $_POST['sightwords'];
-$pname = $_POST['project_name'];
+$pname = $_POST['project_name1'];
 $word = $_POST['wordlist'];
 
 

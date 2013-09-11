@@ -179,6 +179,30 @@ xmlhttp.open("GET",url+"?id="+str,true);
 xmlhttp.send();
 }
 </script>
+<script>
+  function check_genpdf(){
+  if (document.getElementById('selcateg').value == "")
+  {
+    alert ("Please Select A Category First!");
+  }
+  else if (document.getElementById('seltitle').value == "")
+  {
+     alert ("Please Select A Title First!");
+  }
+}
+</script>
+<script>
+  function check_submit(frm)
+  {
+     if (document.getElementById('selcateg').value == ""){
+      return false;
+     }
+     else if (document.getElementById('seltitle').value == ""){
+     return false;
+     }
+}
+
+</script>
 
 <?php //==========================================FLASH CARDS =======================================================================
 error_reporting(E_ALL ^ E_NOTICE);
@@ -194,18 +218,18 @@ error_reporting(E_ALL ^ E_NOTICE);
 			
            <h3> Flash Card Content </h3>
 
-		   <form action="wp-content\plugins\wordwork\admin\templates\tcpdf\samp\flashcards.php" method="POST" enctype="multipart/form-data" target ="blank">
+		   <form action="wp-content\plugins\wordwork\admin\templates\tcpdf\samp\flashcards.php" method="POST" enctype="multipart/form-data" target ="blank" id="flashcontent" onsubmit="return check_submit(this);">
 		 	<table border="0">
 			<tbody>
 			<tr>
 			<td><h4>Project Name</h4></td>
-			<td><input type="text" name="project_name" size="55" value="" placeholder="Your Project Name" /></td>
+			<td><input type="text" name="project_name1" id="project_name1" size="55" value="" placeholder="Your Project Name" /></td>
 			</tr>
 			
 			<tr>
 			<td><h4>Layout</h4></td>  
 			<td><select name ="layout" >
-			<option value="0">Select layout...</options>
+			<option value="0" disabled="disabled">Select layout...</options>
 			<option value="1">1/page Landscape</options>
 			<option value="2">2/page Landscape</options>
 			<option value="3">2/page Portrait</options>
@@ -267,14 +291,14 @@ error_reporting(E_ALL ^ E_NOTICE);
 				</script>
 				
 				
-			<p><center><input type="submit" name="view" value="View/Generate PDF"/> &nbsp; <input type="submit" name="save" value="Save Project"/></p>			
+			<p><center><input type="submit" onclick="check_genpdf();" name="view" value="View/Generate PDF"/> &nbsp; <input type="submit" name="save" value="Save Project"/></p>			
 			</form>		
 <?php
 		if(isset($_POST["save"] )){
 		global $wpdb;
-		$projectname = $_POST['project_name'];
+		$projectname1 = $_POST['project_name1'];
 		$table_name = "wp_project";
-		$wpdb->insert( $table_name, array( 'project_name' => $projectname) );
+		$wpdb->insert( $table_name, array( 'project_name' => $projectname1) );
 		}
 ?>
 				
@@ -395,7 +419,7 @@ if(isset($_POST["gen"] )){
 					<tbody>
 					<tr>
 					<td><h4>Project Name</h4></td>
-					<td><input type="text" name="project_name" size="55" value="" placeholder="Your Project Name" /></td>
+					<td><input type="text" name="project_name" id="project_name" size="55" value="" placeholder="Your Project Name" /></td>
 					</tr>
 					
 					<tr>
