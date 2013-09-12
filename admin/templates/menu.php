@@ -123,8 +123,7 @@ function sandbox_example_theme_menu() {
         create_function( null, 'sandbox_theme_display( "int_settings" );' )
     );
 
-} // end sandbox_example_theme_menu
-		
+} // end sandbox_example_theme_menu		
 
 //MENU CONTENTS:FLASHCARDS
 function sandbox_theme_initialize_input_examples() {  	
@@ -837,6 +836,7 @@ function sandbox_theme_initialize_social_examples() {
 	); 
 
 }
+
 function sandbox_social_examples_callback() {
     $options = get_option( 'sandbox_theme_social_examples' );
 
@@ -848,6 +848,7 @@ function sandbox_social_examples_callback() {
         <th>Project Name</th>
         <th>Created By</th>
 		 <th>Date</th>
+		 <th>File</th>
 		 <th>Options</th>
     </tr>
 </thead>
@@ -878,6 +879,11 @@ function sandbox_social_examples_callback() {
 	echo $data2->date;
 	?>
 	</th>
+	<th> 
+	<?php
+	echo '<a href="../wp-content/plugins/wordwork/admin/templates/download.php?id=' . $data2->id . '">link</a>'; 
+	?>
+	</th>
 		<th>
 	<input type = "button" value = "delete">
 	</th>
@@ -885,21 +891,6 @@ function sandbox_social_examples_callback() {
 	}
 	?>
     </tr>
-<tbody>
-<tfoot>
-    <tr>
-		<th>Project Name</th>
-        <th>Created By</th>
-		<th>Date</th>
-		<th>Options</th>
-    </tr>
-</tfoot>
-<tbody>
-   <tr>
-     <td><?php echo $proj; ?></td>
-     <td><?php echo $user; ?></td>
-     <td><?php echo $date; ?></td>
-   </tr>
 </tbody>
 </table>
 
@@ -908,13 +899,14 @@ function sandbox_social_examples_callback() {
 
 
 }
+
 function sandbox_theme_initialize_int_settings() {  
     if( false == get_option( 'sandbox_theme_int_settings' ) ) {  
         add_option( 'sandbox_theme_int_settings' );		
     } // end if  
 	add_settings_section(  
     'int_settings_section',  
-    'My Area Plugin Integration Settings',  
+    'EduContent Settings',
     'sandbox_int_settings_callback',  
     'sandbox_theme_int_settings'  
 	); 
@@ -923,12 +915,27 @@ function sandbox_theme_initialize_int_settings() {
 
 function sandbox_int_settings_callback() {       
     $options = get_option( 'sandbox_theme_int_settings' );
-	echo '<input type="checkbox" value=""> Integration with My Area plugin ';
+    
+    if($_POST){
+
+    }
+
+    echo '<form action="" method="post" enctype="multipart/form-data">';
+    wp_nonce_field(plugin_basename(__FILE__), 'wp_custom_attachment_nonce');
+    $html = '<p class="description">';
+		$html .= 'Upload your PDF here.';
+    $html .= '</p>';
+    $html .= '<input type="file" id="wp_custom_attachment" name="wp_custom_attachment" value="" size="25">';
+
+    echo $html;
+    
+
+    echo '<br /><p><input type="checkbox" value="" name="myareaplugin"> Integration with My Area plugin </p>';
 		echo '<p>If checked then any PDF produced by the generator are automatically copied to the My Documents tab in My Area.
 		If unchecked, then the PDFs should appear in the Project tab of the Generator..</p>'; 
-  // echo  '<input type="submit" value="Submit" onclick="window.open(?page=sandbox_theme_input_examples);" />';	
- echo  '<input type="submit" value="Submit"  />';	
-
+    // echo  '<input type="submit" value="Submit" onclick="window.open(?page=sandbox_theme_input_examples);" />';
+    echo  '<input type="submit" value="Submit"  />';
+    echo '</form>';
 	wp_register_style('wpb-jquery-ui-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/humanity/jquery-ui.css', false, null);
 	wp_enqueue_style('wpb-jquery-ui-style');
 	wp_register_script('wpb-custom-js', plugins_url('/accordion.js', __FILE__ ), array('jquery-ui-accordion'), '', true);
@@ -952,10 +959,106 @@ function plugin_admin_add_page() {
 add_options_page('Custom Plugin Page', 'Custom Plugin Menu', 'manage_options', 'plugin', 'plugin_options_page');
 }
 
+# WP Admin for attaching files - heinz
 function wp_enqueue_color_picker( ) {
     wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'wp-color-picker-script', plugins_url('script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
-}	
+}
+
+function wp_custom_attachment() {
+
+	wp_nonce_field(plugin_basename(__FILE__), 'wp_custom_attachment_nonce');
+
+	$html = '<p class="description">';
+		$html .= 'Upload your PDF here.';
+	$html .= '</p>';
+	$html .= '<input type="file" id="wp_custom_attachment" name="wp_custom_attachment" value="" size="25">';
+
+	echo $html;
+
+} // end wp_custom_attachment
+
+function add_custom_meta_boxes() {
+  // Define the custom attachment for posts
+	add_meta_box(
+		'wp_custom_attachment',
+		'Custom Attachment',
+		'wp_custom_attachment',
+		'post',
+		'side'
+	);
+
+	// Define the custom attachment for pages
+	add_meta_box(
+		'wp_custom_attachment',
+		'Custom Attachment',
+		'wp_custom_attachment',
+		'page',
+		'side'
+	);
+} // end add_custom_meta_boxes
+
+function save_custom_meta_data($id) {
+
+	/* --- security verification --- */
+	if(!wp_verify_nonce($_POST['wp_custom_attachment_nonce'], plugin_basename(__FILE__))) {
+	  return $id;
+	} // end if
+
+	if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+	  return $id;
+	} // end if
+
+	if('page' == $_POST['post_type']) {
+	  if(!current_user_can('edit_page', $id)) {
+	    return $id;
+	  } // end if
+	} else {
+   		if(!current_user_can('edit_page', $id)) {
+	    	return $id;
+	   	} // end if
+	} // end if
+	/* - end security verification - */
+
+	// Make sure the file array isn't empty
+	if(!empty($_FILES['wp_custom_attachment']['name'])) {
+
+		// Setup the array of supported file types. In this case, it's just PDF.
+		$supported_types = array('application/pdf');
+
+		// Get the file type of the upload
+		$arr_file_type = wp_check_filetype(basename($_FILES['wp_custom_attachment']['name']));
+		$uploaded_type = $arr_file_type['type'];
+
+		// Check if the type is supported. If not, throw an error.
+		if(in_array($uploaded_type, $supported_types)) {
+
+			// Use the WordPress API to upload the file
+			$upload = wp_upload_bits($_FILES['wp_custom_attachment']['name'], null, file_get_contents($_FILES['wp_custom_attachment']['tmp_name']));
+
+			if(isset($upload['error']) && $upload['error'] != 0) {
+				wp_die('There was an error uploading your file. The error is: ' . $upload['error']);
+			} else {
+				add_post_meta($id, 'wp_custom_attachment', $upload);
+				update_post_meta($id, 'wp_custom_attachment', $upload);
+			} // end if/else
+
+		} else {
+			wp_die("The file type that you've uploaded is not a PDF.");
+		} // end if/else
+
+	} // end if
+
+} // end save_custom_meta_data
+
+function update_edit_form() {
+    echo ' enctype="multipart/form-data"';
+} // end update_edit_form
+add_action('post_edit_form_tag', 'update_edit_form');
+
+add_action('save_post', 'save_custom_meta_data');
+
+add_action('add_meta_boxes', 'add_custom_meta_boxes');
 
 //========================================================================/
 add_action( 'admin_menu', 'sandbox_example_theme_menu' );

@@ -190,10 +190,27 @@ xmlhttp.send();
      alert ("Please Select A Title First!");
   }
 }
+  function check2_genpdf(){
+  if (document.getElementById('project_name1').value == "")
+  {
+    alert ("Please Add a Project Name!");
+  }
+  else if (document.getElementById('selcateg').value == "")
+  {
+    alert ("Please Select A Category First!");
+  }
+  else if (document.getElementById('seltitle').value == "")
+  {
+     alert ("Please Select A Title First!");
+  }
+}
 </script>
 <script>
   function check_submit(frm)
   {
+    if (document.getElementById('project_name1').value == ""){
+      return false;
+     }
      if (document.getElementById('selcateg').value == ""){
       return false;
      }
@@ -201,6 +218,7 @@ xmlhttp.send();
      return false;
      }
 }
+
 
 </script>
 
@@ -291,10 +309,10 @@ error_reporting(E_ALL ^ E_NOTICE);
 				</script>
 				
 				
-			<p><center><input type="submit" onclick="check_genpdf();" name="view" value="View/Generate PDF"/> &nbsp; <input type="submit" name="save" value="Save Project"/></p>			
+			<p><center><input type="submit" onclick="check_genpdf();" name="view" value="View/Generate PDF"/> &nbsp; <input type="submit" name="saveprojtemp" value="Save Project" onclick="check2_genpdf();"/></p>			
 			</form>		
 <?php
-		if(isset($_POST["save"] )){
+		if(isset($_POST["saveprojtemp"] )){
 		global $wpdb;
 		$projectname1 = $_POST['project_name1'];
 		$table_name = "wp_project";

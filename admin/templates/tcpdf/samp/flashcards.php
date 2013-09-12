@@ -86,7 +86,30 @@ $pdf->SetFont('sofiaprobold', '', 88, '', true);
 $pdf->Write($h=88, $w, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
 }
 }
-$pdf->Output('flashcards_pdf.pdf', 'D');
+if(isset($_POST["saveprojtemp"] )){
+   $db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');
+   $projectname = $_POST['project_name1'];
+   $table_name = "wp_project";
+   $date = date("Y-m-d H:i:s");
+   $create = "Admin";
+   $content = $pdf->Output('', 'S');
+$db->query("INSERT INTO $table_name (project_name, date, created_by, file) VALUES ('".$projectname."', '".$date."', '".$create."', '".mysql_real_escape_string($content)."')");
+//$pdf->Output($_SERVER['DOCUMENT_ROOT']."educontent/wp-content/plugins/wordwork/admin/templates/tcpdf/pdffile/flashcards_pdf.pdf",'F');
+//$pdf->Output($_SERVER['SCRIPT_FILENAME'].'flashcards_pdf.pdf', 'F');
+$base = dirname(__FILE__);
+$path = dirname(dirname(dirname($base)))."/templates/tcpdf/pdffile/flashcards_pdf-($projectname).pdf";
+$path = str_replace("\\", "/", $path);
+$pdf->Output($path,'F');
+print "<script type=\"text/javascript\">"; 
+print "alert('Successfully Saved')"; 
+print "</script>";
+print '<script>';
+print 'window.close()';
+print '</script>';
+}
+else{
+$pdf->Output('flashcards_pdf.pdf', 'I');    
+}
 }
 //===================================================2Page-Landscape==========================================//
 elseif ($_POST['layout'] == 2) {
@@ -181,7 +204,20 @@ $pdf->Write($h=88, $w, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $fir
 //$pdf->Text(113, 135, $w);
 }
 }
+if(isset($_POST["saveprojtemp"] )){
+  $db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');
+   $projectname = $_POST['project_name1'];
+   $table_name = "wp_project";
+   $date = date("Y-m-d H:i:s");
+   $create = "Admin";
+   $content = $pdf->Output('flashcards_pdf.pdf','F');
+ //  $db->insert( $table_name, array( 'project_name' => $projectname) );
+$db->query("INSERT INTO $table_name (project_name, date, created_by, file) VALUES ('".$projectname."', '".$date."', '".$create."', '".$content."')");
 $pdf->Output('flashcards_pdf.pdf', 'D');
+}
+else{
+$pdf->Output('flashcards_pdf.pdf', 'I');    
+}
 }
 //===================================================2Page-Portrait==========================================//
 if ($_POST['layout'] == 3)
@@ -276,7 +312,21 @@ $pdf->SetXY(15,  180);
 $pdf->Write($h=88, $w, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
 }
 }
+if(isset($_POST["saveprojtemp"] )){
+  $db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');
+   $projectname = $_POST['project_name1'];
+   $table_name = "wp_project";
+   $date = date("Y-m-d H:i:s");
+   $create = "Admin";
+   $content = $pdf->Output('flashcards_pdf.pdf','F');
+ //  $db->insert( $table_name, array( 'project_name' => $projectname) );
+$db->query("INSERT INTO $table_name (project_name, date, created_by, file) VALUES ('".$projectname."', '".$date."', '".$create."', '".$content."')");
+    
 $pdf->Output('flashcards_pdf.pdf', 'D');
+}
+else{
+$pdf->Output('flashcards_pdf.pdf', 'I');    
+}
 }
 //===================================================4Page-Landscape==========================================//
 if ($_POST['layout'] == 4)
@@ -405,5 +455,18 @@ $pdf->SetXY(150,  110);
 $pdf->Write($h=88, $w, $link='', $fill=0, $align='C', $ln=true, $stretch=0, $firstline=false, $firstblock=false, $maxh=0);
 }
 }
+if(isset($_POST["saveprojtemp"] )){
+  $db = new mysqli('localhost','levitan5_webdev','xR4OfBo41rzm','levitan5_esisswp');
+   $projectname = $_POST['project_name1'];
+   $table_name = "wp_project";
+   $date = date("Y-m-d H:i:s");
+   $create = "Admin";
+   $content = $pdf->Output('flashcards_pdf.pdf','F');
+ //  $db->insert( $table_name, array( 'project_name' => $projectname) );
+$db->query("INSERT INTO $table_name (project_name, date, created_by, file) VALUES ('".$projectname."', '".$date."', '".$create."', '".$content."')");
 $pdf->Output('flashcards_pdf.pdf', 'D');
+}
+else{
+$pdf->Output('flashcards_pdf.pdf', 'I');    
+}
 }
